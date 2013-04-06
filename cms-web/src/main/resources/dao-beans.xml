@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="gbk"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+
+    <bean id="channelDatasource" class="org.logicalcobwebs.proxool.ProxoolDataSource">
+        <property name="alias" value="channel_ds"/>
+        <property name="driver" value="com.mysql.jdbc.Driver"/>
+        <property name="driverUrl" value="jdbc:mysql://127.0.0.1:3306/cms_framework"/>
+        <property name="user" value="root"/>
+        <property name="password" value="javafan"/>
+        <property name="maximumConnectionCount" value="5"/>
+    </bean>
+
+</beans>

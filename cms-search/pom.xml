@@ -4,13 +4,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>cms-framework</artifactId>
-        <groupId>net.pusuo.cms</groupId>
+        <groupId>net.pusuo</groupId>
         <version>1.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>cms-search</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>${main.version}</version>
 
     <dependencies>
         <dependency>
