@@ -8,6 +8,16 @@ public class Channel extends Item {
     private String name;
     private String dir;
 
+    public Channel() {
+    }
+
+    public Channel(long id, String name, String dir) {
+        this.id = id;
+        this.name = name;
+        this.dir = dir;
+    }
+
+
     public long getId() {
         return id;
     }

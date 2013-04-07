@@ -4,6 +4,7 @@ import java.util.List;
 
 /**
  * 目录结构的节点
+ *
  * @deprecated
  */
 public class Category extends Item {

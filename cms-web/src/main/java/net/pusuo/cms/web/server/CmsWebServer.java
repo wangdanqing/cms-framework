@@ -1,13 +1,13 @@
 package net.pusuo.cms.web.server;
 
-public class CmsServer extends AbstractServer {
+public class CmsWebServer extends AbstractServer {
 
-    public CmsServer(String[] anArgs) {
+    public CmsWebServer(String[] anArgs) {
         super(anArgs);
     }
 
     public static void main(String... anArgs) throws Exception {
-        new CmsServer(anArgs).run();
+        new CmsWebServer(anArgs).run();
     }
 
     @Override

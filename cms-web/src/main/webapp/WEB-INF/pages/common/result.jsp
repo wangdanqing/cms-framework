@@ -1,2 +1,3 @@
-<%@ page contentType="application/x-javascript; charset=GBK" language="java" pageEncoding="GBK" %>${result}
-                          F
+<%@ page contentType="application/x-javascript; charset=utf-8" language="java" pageEncoding="utf-8" %>
+${result}
+F

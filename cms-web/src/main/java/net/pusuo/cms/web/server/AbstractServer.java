@@ -117,7 +117,7 @@ public abstract class AbstractServer {
 
     private HandlerCollection createHandlers() {
 
-        System.setProperty("jetty.home", "/tmp/");
+        System.setProperty("jetty.home", "/tmp/_work");
 
         WebAppContext _ctx = new WebAppContext();
         _ctx.setContextPath("/");
