@@ -20,6 +20,19 @@ public class ChannelService {
     private final static DataSource ds = DaoFactory.getChannelDataSource();
     private final static DBI dbi = new DBI(ds);
 
+    public void insert(Channel channel) {
+        if (channel == null) {
+            return;
+        }
+
+        Handle handle = dbi.open();
+        try {
+            ChannelMappingDao db = handle.attach(ChannelMappingDao.class);
+            db.insertBean(channel);
+        } finally {
+            handle.close();
+        }
+    }
 
     public static void main(String... args) {
 
