@@ -1,5 +1,6 @@
-package net.pusuo.cms.web.web.channel;
+package net.pusuo.cms.web.web;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -9,10 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * Time: 下午11:28
  * To change this template use File | Settings | File Templates.
  */
+@Controller
 public class ChannelController {
 
 
-    @RequestMapping(value = "listchannelTree")
+    @RequestMapping("listchannelTree")
     public String listChannelTree() {
 
         return null;

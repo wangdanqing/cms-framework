@@ -11,6 +11,7 @@
     <modules>
         <module>cms-web</module>
         <module>cms-core</module>
+        <module>cms-tools</module>
     </modules>
 
     <properties>

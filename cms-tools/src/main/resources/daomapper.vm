@@ -1,0 +1,24 @@
+package net.pusuo.cms.web.dao;
+
+import net.pusuo.cms.core.bean.${classname};
+import org.skife.jdbi.v2.StatementContext;
+import org.skife.jdbi.v2.tweak.ResultSetMapper;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+/**
+ * data access object
+ * User: shijinkui
+ * Time: ${date}
+ * Generate by Util class
+ */
+public class ${classname}Mapper implements ResultSetMapper<${classname}> {
+    public ${classname} map(int index, ResultSet r, StatementContext ctx) throws SQLException {
+        ${classname} c = new ${classname}();
+        c.setId(r.getInt("id"));
+        c.setName(r.getString("name"));
+        c.setDir(r.getString("dir"));
+        return c;
+    }
+}

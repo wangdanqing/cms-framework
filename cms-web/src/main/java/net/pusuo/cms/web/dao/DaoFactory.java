@@ -1,5 +1,6 @@
 package net.pusuo.cms.web.dao;
 
+import org.skife.jdbi.v2.DBI;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.xml.XmlBeanFactory;
 import org.springframework.core.io.ClassPathResource;
@@ -27,7 +28,17 @@ public class DaoFactory {
         bf = new XmlBeanFactory(resource);
     }
 
-    public static DataSource getChannelDataSource() {
-        return (DataSource) bf.getBean("channelDatasource");
+    public static DBI getChannelDBI() {
+        DataSource ds = (DataSource) bf.getBean("channelDatasource");
+        DBI dbi = new DBI(ds);
+
+        return dbi;
+    }
+
+    public static DBI getSubjectDBI() {
+        DataSource ds = (DataSource) bf.getBean("subjectDatasource");
+        DBI dbi = new DBI(ds);
+
+        return dbi;
     }
 }

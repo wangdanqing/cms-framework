@@ -58,21 +58,24 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="/ico/apple-touch-icon-57-precomposed.png">
-    <link rel="shortcut icon" href=/images/ico/favicon.ico
-    ">
+    <link rel="shortcut icon" href="/images/ico/favicon.ico"/>
 </head>
 
 <body>
 
 <div class="container">
-
-    <form class="form-signin">
-        <%--<h2 class="form-signin-heading">请登陆</h2>--%>
-        <input type="text" class="input-block-level" placeholder="Email address">
-        <input type="password" class="input-block-level" placeholder="Password">
-        <label class="checkbox">
-            <input type="checkbox" value="remember-me"> 记住我
-        </label>
+    <form class="form-signin" action="/user/loginin" method="post">
+        <c:if test="${not empty login_error}">
+            <span class="label"><c:out value="${login_error}" escapeXml="false"/></span>
+        </c:if>
+        <h2 class="form-signin-heading">登陆</h2>
+        <input type="text" name="username" id="username" class="input-block-level" placeholder="Email address">
+        <input type="password" name="password" id="password" class="input-block-level" placeholder="Password">
+        <input type="text" name="captcha" id="captcha" class="input-block-level" placeholder="输入验证码">
+        <img src="/user/getCaptcha" title="验证码" style="margin:5px 0 10px 0"/> <br/>
+        <%--<label class="checkbox">--%>
+        <%--<input type="checkbox" value="remember-me"> 记住我--%>
+        <%--</label>--%>
         <button class="btn btn-large btn-primary" type="submit">登陆</button>
     </form>
 

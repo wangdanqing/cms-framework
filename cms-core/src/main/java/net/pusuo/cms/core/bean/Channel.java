@@ -4,14 +4,14 @@ package net.pusuo.cms.core.bean;
 public class Channel extends Item {
 
     private static final long serialVersionUID = -72762959500782694L;
-    private long id;
+    private int id;
     private String name;
     private String dir;
 
     public Channel() {
     }
 
-    public Channel(long id, String name, String dir) {
+    public Channel(int id, String name, String dir) {
         this.id = id;
         this.name = name;
         this.dir = dir;
@@ -22,7 +22,7 @@ public class Channel extends Item {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

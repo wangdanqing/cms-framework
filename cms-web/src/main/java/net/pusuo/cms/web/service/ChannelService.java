@@ -6,7 +6,6 @@ import net.pusuo.cms.web.dao.DaoFactory;
 import org.skife.jdbi.v2.DBI;
 import org.skife.jdbi.v2.Handle;
 
-import javax.sql.DataSource;
 import java.util.List;
 
 /**
@@ -16,11 +15,9 @@ import java.util.List;
  * Time: 下午11:13
  * To change this template use File | Settings | File Templates.
  */
-public class ChannelService {
+public class ChannelService implements IService<Channel> {
 
-    private final DataSource ds = DaoFactory.getChannelDataSource();
-    private final DBI dbi = new DBI(ds);
-
+    private final DBI dbi = DaoFactory.getChannelDBI();
 
     public void insert(Channel channel) {
         if (channel == null) {
@@ -36,7 +33,7 @@ public class ChannelService {
         }
     }
 
-    public Channel get(long id) {
+    public Channel getById(int id) {
         if (id < 0) {
             return null;
         }
@@ -47,7 +44,7 @@ public class ChannelService {
         return c;
     }
 
-    public void delete(long id) {
+    public void delete(int id) {
         if (id < 0) {
             return;
         }
@@ -57,7 +54,7 @@ public class ChannelService {
     }
 
 
-    public List<Channel> query(long id) {
+    public List<Channel> query(int id) {
         if (id < 0) {
             return null;
         }
@@ -76,8 +73,7 @@ public class ChannelService {
     }
 
     public static void main(String... args) {
-        DataSource ds = DaoFactory.getChannelDataSource();
-        final DBI dbi = new DBI(ds);
+        final DBI dbi = DaoFactory.getChannelDBI();
         Handle handle = dbi.open();
         try {
             ChannelDao db = handle.attach(ChannelDao.class);

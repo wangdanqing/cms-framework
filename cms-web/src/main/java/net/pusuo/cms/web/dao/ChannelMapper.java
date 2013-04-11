@@ -10,7 +10,7 @@ import java.sql.SQLException;
 public class ChannelMapper implements ResultSetMapper<Channel> {
     public Channel map(int index, ResultSet r, StatementContext ctx) throws SQLException {
         Channel c = new Channel();
-        c.setId(r.getLong("id"));
+        c.setId(r.getInt("id"));
         c.setName(r.getString("name"));
         c.setDir(r.getString("dir"));
         return c;

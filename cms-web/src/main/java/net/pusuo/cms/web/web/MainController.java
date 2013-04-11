@@ -1,12 +1,9 @@
 package net.pusuo.cms.web.web;
 
-import net.pusuo.cms.core.bean.Channel;
-import net.pusuo.cms.web.service.ChannelService;
+import net.pusuo.cms.web.util.ChannelUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -18,17 +15,13 @@ import java.util.List;
 @Controller
 public class MainController {
 
-    private final ChannelService channelService = new ChannelService();
 
     @RequestMapping("/")
     public ModelAndView defaultPage() {
         ModelAndView view = new ModelAndView("index");
-        view.addObject("channelList", getChannelList());
-
+        ChannelUtil.fillChannel(view);
+        view.addObject("include_page", "_welcome.jsp");
         return view;
     }
 
-    private List<Channel> getChannelList() {
-        return channelService.query(0);
-    }
 }
