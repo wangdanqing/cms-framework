@@ -38,11 +38,12 @@ public class UserController {
 
         String verify_captcha = (String) session.getAttribute("key_capt_word");
         ModelAndView m = null;
-        if (!captcha.equals(verify_captcha)) {
-            m = new ModelAndView("/user/login");
-            m.addObject("login_error", "验证码错误，请重新登陆");
-            return m;
-        }
+        //todo
+//        if (!captcha.equals(verify_captcha)) {
+//            m = new ModelAndView("/user/login");
+//            m.addObject("login_error", "验证码错误，请重新登陆");
+//            return m;
+//        }
 
         try {
             response.sendRedirect("/");

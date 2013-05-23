@@ -1,4 +1,6 @@
-CREATE DATABASE cms_framework IF EXISTS DEFAULT utf8;
+CREATE DATABASE  IF not EXISTS cms_framework DEFAULT charset utf8;
+
+use cms_framework;
 
 CREATE TABLE cms_framework.channel
 (

@@ -34,8 +34,8 @@ public interface ChannelDao {
     @SqlQuery("select id, name, dir from channel where id > :id order by id asc")
     public List<Channel> query(@Bind("id") long id);
 
-    @SqlQuery("delete channel where id = :id")
-    public List<Channel> delete(@Bind("id") long id);
+    @SqlUpdate("delete from channel where id = :id")
+    public void delete(@Bind("id") long id);
 
     @SqlUpdate("update channel set name = :name, dir = :dir where id = :id")
     int update(@BindBean Channel s);

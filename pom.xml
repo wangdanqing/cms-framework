@@ -9,9 +9,9 @@
     <packaging>pom</packaging>
     <version>1.0</version>
     <modules>
-        <module>cms-web</module>
-        <module>cms-core</module>
         <module>cms-tools</module>
+        <module>cms-core</module>
+        <module>cms-web</module>
     </modules>
 
     <properties>

@@ -17,6 +17,7 @@
         <jetty.jsp.version>8.1.4.v20120524</jetty.jsp.version>
         <jetty.version>8.1.5.v20120716</jetty.version>
         <spring.version>3.2.2.RELEASE</spring.version>
+        <jackson.version>1.9.12</jackson.version>
     </properties>
 
 
@@ -118,6 +119,19 @@
             <groupId>net.pusuo</groupId>
             <artifactId>patchca</artifactId>
             <version>0.5.0</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-core-asl</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-mapper-asl</artifactId>
+            <version>${jackson.version}</version>
         </dependency>
 
     </dependencies>

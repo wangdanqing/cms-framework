@@ -111,7 +111,6 @@ public abstract class AbstractServer {
         connector.setSoLingerTime((int) config.soLingerTime.toMilliseconds());
 
         connector.setName("main-jetty");
-
         return connector;
     }
 
@@ -136,7 +135,6 @@ public abstract class AbstractServer {
 
         HandlerCollection _result = new HandlerCollection();
         _result.setHandlers(new Handler[]{_contexts, _log});
-
         return _result;
     }
 

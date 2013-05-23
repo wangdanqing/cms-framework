@@ -22,7 +22,7 @@ public class SubjectMapper implements ResultSetMapper<Subject> {
         c.setFullpath(r.getString("fullpath"));
         c.setName(r.getString("name"));
         c.setDesc(r.getString("desc"));
-        c.setCtime(r.getInt("ctime"));
+        c.setCtime(r.getLong("ctime"));
         c.setPid(r.getInt("priority"));
         c.setStatus(r.getInt("status"));
         c.setChannelId(r.getInt("channelId"));

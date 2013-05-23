@@ -42,6 +42,11 @@ public class SubjectService implements IService<Subject> {
         return dao.queryByChannel(key);
     }
 
+    public List<Subject> getHomePageList() {
+        SubjectDao dao = dbi.onDemand(SubjectDao.class);
+        return dao.queryChannelList();
+    }
+
     @Override
     public boolean update(Subject obj) {
         SubjectDao dao = dbi.onDemand(SubjectDao.class);

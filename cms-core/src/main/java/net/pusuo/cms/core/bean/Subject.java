@@ -1,20 +1,21 @@
 package net.pusuo.cms.core.bean;
 
-public class Subject{
+public class Subject {
 
     private int id;
     private int pid;
     private String fullpath;//父对象的全路径，以";"分割
     private String name;    //发布英文名称
     private String desc;    //描述
-    private int ctime;      //create time
+    private long ctime;      //create time
     private int priority = 60;
     private int status = 0;
     private int channelId;
+    private int parentId;   //父栏目id
     private int editorId;   //编辑
     private int templateId;//当前模板Id
     private String bakTemplateList;    //备用模板id列表, 以";"分割
-    private int type = 0;   //类型，0:栏目   1:专题
+    private int type = 1;   //类型，0:首页      1:栏目   2:专题
 
     public int getId() {
         return id;
@@ -56,11 +57,12 @@ public class Subject{
         this.desc = desc;
     }
 
-    public int getCtime() {
+
+    public long getCtime() {
         return ctime;
     }
 
-    public void setCtime(int ctime) {
+    public void setCtime(long ctime) {
         this.ctime = ctime;
     }
 
@@ -118,5 +120,13 @@ public class Subject{
 
     public void setType(int type) {
         this.type = type;
+    }
+
+    public int getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(int parentId) {
+        this.parentId = parentId;
     }
 }
