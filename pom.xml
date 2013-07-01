@@ -22,6 +22,10 @@
 
 
     <distributionManagement>
+        <site>
+            <id>cms-framework-project-site</id>
+            <url>gitsite:git@github.com/pusuo/cms-framework.git</url>
+        </site>
         <repository>
             <id>github</id>
             <name>GitHub ${project.artifactId} Repository</name>
@@ -38,19 +42,19 @@
                 <updatePolicy>always</updatePolicy>
             </snapshots>
         </repository>
-        <!--<repository>-->
-            <!--<id>nexus-releases</id>-->
-            <!--<name>Nexus Public Repository</name>-->
-            <!--<url>http://127.0.0.1:8888/nexus/content/groups/public</url>-->
-        <!--</repository>-->
-        <!--<repository>-->
-            <!--<id>nexus-snapshots</id>-->
-            <!--<name>Nexus Snapshot Repository</name>-->
-            <!--<url>http://127.0.0.1:8888/nexus/content/groups/snapshot</url>-->
-            <!--<snapshots>-->
-                <!--<enabled>true</enabled>-->
-            <!--</snapshots>-->
-        <!--</repository>-->
+        <repository>
+            <id>nexus-releases</id>
+            <name>Nexus Public Repository</name>
+            <url>http://127.0.0.1:8888/nexus/content/groups/public</url>
+        </repository>
+        <repository>
+            <id>nexus-snapshots</id>
+            <name>Nexus Snapshot Repository</name>
+            <url>http://127.0.0.1:8888/nexus/content/groups/snapshot</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
     </repositories>
 
     <dependencyManagement>
@@ -79,20 +83,15 @@
                 <version>0.7</version>
                 <configuration>
                     <message>Maven artifacts for ${project.version}</message>
-                    <!-- git commit message -->
                     <noJekyll>true</noJekyll>
-                    <!-- disable webpage processing -->
                     <outputDirectory>${project.build.directory}/mvn-repo</outputDirectory>
-                    <!-- matches distribution management repository url above -->
                     <branch>refs/heads/mvn-repo</branch>
-                    <!-- remote branch name -->
                     <includes>
                         <include>**/*</include>
                     </includes>
                     <repositoryName>cms-framework</repositoryName>
-                    <!-- github repo name -->
                     <repositoryOwner>shijinkui666@163.com</repositoryOwner>
-                    <!-- github username  -->
+                    <server>${github.global.server}</server>
                 </configuration>
                 <executions>
                     <!-- run site-maven-plugin's 'site' target as part of the build's normal 'deploy' phase -->
@@ -100,7 +99,7 @@
                         <goals>
                             <goal>site</goal>
                         </goals>
-                        <phase>deploy</phase>
+                        <phase>site</phase>
                     </execution>
                 </executions>
             </plugin>
