@@ -1,12 +1,14 @@
-CREATE DATABASE  IF not EXISTS cms_framework DEFAULT charset utf8;
+CREATE DATABASE IF NOT EXISTS cms_framework
+  DEFAULT CHARSET utf8;
 
-use cms_framework;
+USE cms_framework;
 
 CREATE TABLE cms_framework.channel
 (
   id   INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
   name VARCHAR(255),
-  dir  VARCHAR(20)                    NOT NULL
+  dir  VARCHAR(20)                    NOT NULL,
+  UNIQUE (dir)
 );
 
 CREATE TABLE subject
@@ -36,6 +38,18 @@ CREATE TABLE user (
   mobile  VARCHAR(50)  NOT NULL,
   address VARCHAR(50)  NOT NULL,
   `group` INT
+);
+
+# 网站页面模版
+CREATE TABLE template (
+  id         INT         NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  name       VARCHAR(50) NOT NULL,
+  type       TINYINT     NOT NULL,
+  content    BLOB,
+  createTime TIMESTAMP   NOT NULL,
+  uptime     TIMESTAMP   NOT NULL,
+  status     TINYINT DEFAULT 1,
+  creator    INT         NOT NULL #创建者
 );
 
 

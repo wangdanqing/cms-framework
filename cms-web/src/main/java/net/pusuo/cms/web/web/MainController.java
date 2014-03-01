@@ -1,12 +1,13 @@
 package net.pusuo.cms.web.web;
 
-import net.pusuo.cms.web.util.ChannelUtil;
+import net.pusuo.cms.web.util.CommonViewUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
- * Created with IntelliJ IDEA.
+ * 首页欢迎页
  * User: shijinkui
  * Date: 13-3-27
  * Time: 上午12:24
@@ -14,14 +15,8 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 public class MainController {
-
-
-    @RequestMapping("/")
-    public ModelAndView defaultPage() {
-        ModelAndView view = new ModelAndView("index");
-        ChannelUtil.fillChannel(view);
-        view.addObject("include_page", "_welcome.jsp");
-        return view;
-    }
-
+	@RequestMapping("/")
+	public ModelAndView defaultPage() {
+		return CommonViewUtil.renderListView("_welcome.jsp", null);
+	}
 }

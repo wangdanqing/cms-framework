@@ -24,51 +24,51 @@ import java.io.IOException;
 @RequestMapping("user")
 public class UserController {
 
-    @RequestMapping("login")
-    public ModelAndView login() {
-        ModelAndView m = new ModelAndView("user/login");
-        return m;
-    }
+	@RequestMapping("login")
+	public ModelAndView login() {
+		ModelAndView m = new ModelAndView("user/login");
+		return m;
+	}
 
-    @RequestMapping("loginin")
-    public ModelAndView loginin(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
-        String name = request.getParameter("username");
-        String passwd = request.getParameter("password");
-        String captcha = request.getParameter("captcha");
+	@RequestMapping("loginin")
+	public ModelAndView loginin(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+		String name = request.getParameter("username");
+		String passwd = request.getParameter("password");
+		String captcha = request.getParameter("captcha");
 
-        String verify_captcha = (String) session.getAttribute("key_capt_word");
-        ModelAndView m = null;
-        //todo
+		String verify_captcha = (String) session.getAttribute("key_capt_word");
+		ModelAndView m = null;
+		//todo
 //        if (!captcha.equals(verify_captcha)) {
 //            m = new ModelAndView("/user/login");
 //            m.addObject("login_error", "验证码错误，请重新登陆");
 //            return m;
 //        }
 
-        try {
-            response.sendRedirect("/");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+		try {
+			response.sendRedirect("/");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
-        session.setAttribute("user", "->" + name);
+		session.setAttribute("user", "->" + name);
 
-        m = new ModelAndView("index");
-        return m;
-    }
+		m = new ModelAndView("index");
+		return m;
+	}
 
 
-    @RequestMapping("getCaptcha")
-    @ResponseBody
-    public void getCaptcha(HttpSession session, HttpServletResponse response) {
-        Captcha captcha = CaptchaUtil.getCaptcha();
-        session.setAttribute("key_capt_word", captcha.getChallenge());
+	@RequestMapping("getCaptcha")
+	@ResponseBody
+	public void getCaptcha(HttpSession session, HttpServletResponse response) {
+		Captcha captcha = CaptchaUtil.getCaptcha();
+		session.setAttribute("key_capt_word", captcha.getChallenge());
 
-        try {
-            ImageIO.write(captcha.getImage(), "jpg", response.getOutputStream());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+		try {
+			ImageIO.write(captcha.getImage(), "jpg", response.getOutputStream());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 }

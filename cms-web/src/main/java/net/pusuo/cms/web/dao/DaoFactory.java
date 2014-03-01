@@ -17,28 +17,32 @@ import javax.sql.DataSource;
  */
 public class DaoFactory {
 
-    private static BeanFactory bf;
+	private static BeanFactory bf;
 
-    static {
-        init();
-    }
+	static {
+		init();
+	}
 
-    public static synchronized void init() {
-        Resource resource = new ClassPathResource("dao-beans.xml");
-        bf = new XmlBeanFactory(resource);
-    }
+	public static synchronized void init() {
+		Resource resource = new ClassPathResource("dao-beans.xml");
+		bf = new XmlBeanFactory(resource);
+	}
 
-    public static DBI getChannelDBI() {
-        DataSource ds = (DataSource) bf.getBean("channelDatasource");
-        DBI dbi = new DBI(ds);
+	public static DBI getChannelDBI() {
+		DataSource ds = (DataSource) bf.getBean("datasource");
 
-        return dbi;
-    }
+		return new DBI(ds);
+	}
 
-    public static DBI getSubjectDBI() {
-        DataSource ds = (DataSource) bf.getBean("subjectDatasource");
-        DBI dbi = new DBI(ds);
+	public static DBI getSubjectDBI() {
+		DataSource ds = (DataSource) bf.getBean("datasource");
 
-        return dbi;
-    }
+		return new DBI(ds);
+	}
+
+	public static DBI getTemplateDBI() {
+		DataSource ds = (DataSource) bf.getBean("datasource");
+
+		return new DBI(ds);
+	}
 }

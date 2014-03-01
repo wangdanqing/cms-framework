@@ -16,16 +16,16 @@ import java.awt.*;
  * To change this template use File | Settings | File Templates.
  */
 public class CaptchaUtil {
-    private final static ConfigurableCaptchaService cs = new ConfigurableCaptchaService();
+	private final static ConfigurableCaptchaService cs = new ConfigurableCaptchaService();
 
-    static {
-        cs.setColorFactory(new SingleColorFactory(new Color(25, 60, 170)));
-        cs.setBackgroundFactory(new SingleColorBackgroundFactory());
+	static {
+		cs.setColorFactory(new SingleColorFactory(new Color(25, 60, 170)));
+		cs.setBackgroundFactory(new SingleColorBackgroundFactory());
 //        cs.setFilterFactory(new CurvesRippleFilterFactory(cs.getColorFactory()));
-        cs.setFilterFactory(new WobbleRippleFilterFactory());
-    }
+		cs.setFilterFactory(new WobbleRippleFilterFactory());
+	}
 
-    public static Captcha getCaptcha() {
-        return cs.getCaptcha();
-    }
+	public static Captcha getCaptcha() {
+		return cs.getCaptcha();
+	}
 }

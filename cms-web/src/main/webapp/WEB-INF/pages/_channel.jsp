@@ -1,58 +1,75 @@
 <%@ page contentType="text/html;charset=utf-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<div class="bs-docs-example">
-    <div class="btn-group">
-        <button class="btn"><a href="/channel/list" id="addnew">刷新</a></button>
-    </div>
-    <table class="table">
-        <thead>
-        <tr>
-            <th>#</th>
-            <th>ID</th>
-            <th>名称</th>
-            <th>目录</th>
-            <th>操作</th>
-        </tr>
-        </thead>
-        <tbody>
+<script src="${pageContext.request.contextPath}/js/angular.js" type="text/javascript"></script>
+<div class="bs-docs-example" ng-controller="channelCtrl">
+	<table class="table">
+		<thead>
+		<tr>
+			<th>ID</th>
+			<th>名称</th>
+			<th>目录</th>
+			<th>操作</th>
+		</tr>
+		</thead>
+		<tbody>
+		<div id="ng_channel">
+			<form ng-submit="addChannel()">
+				<input type="text" ng-model="name" size="30" placeholder="填写频道名字, 如: 普索网"/> <input type="text"
+																								   ng-model="dir"
+																								   size="30"
+																								   placeholder="填写频道目录名, 如: pusuo"/>
+				<input class="btn-primary" type="submit" value="add">
+			</form>
+		</div>
+		<div class="alert alert-info">频道面板。 {{msg}} {{error}}</div>
+		<form action="/channel/delete" method="post">
+			<tr ng-repeat="ch in channels">
+				<td>{{ch.id}}</td>
+				<td>{{ch.name}}</td>
+				<td>{{ch.dir}}</td>
+				<td>
+					<button type="button" class="btn btn-default" ng-click="deleteChannel(ch)">删除</button>
+				</td>
+			</tr>
+		</form>
 
-        <form action="/channel/delete" method="post">
-            <c:forEach items="${list}" var="channel" varStatus="idx">
-                <tr>
-                    <td><c:out value="${idx.count}"/></td>
-                    <td><c:out value="${channel.id}"/></td>
-                    <td><c:out value="${channel.name}"/></td>
-                    <td><c:out value="${channel.dir}"/></td>
-                    <td>修改 <label>删除 <input type="radio" name="id" value="<c:out value="${idx.count}"/>"/> </label></td>
-                </tr>
-            </c:forEach>
-
-            <tr>
-                <td colspan="4">
-                </td>
-                <td>
-                    <button type="submit" id="deletesubmit" class="btn">删除</button>
-                </td>
-
-            </tr>
-        </form>
-
-        </tbody>
-    </table>
-
-    <div id="addNews">
-        <form action="/channel/add" method="post">
-            <fieldset>
-                <legend>新增频道</legend>
-                <label>名称</label>
-                <input type="text" name="name" placeholder="name...">
-                <span class="help-block">频道名称，如：一苇阅读网</span>
-
-                <label>目录</label>
-                <input type="text" name="dir" placeholder="dir...">
-                <span class="help-block">网站存储目录，如：txt7.com.cn则为:txt7</span>
-                <button type="submit" class="btn">提交</button>
-            </fieldset>
-        </form>
-    </div>
+		</tbody>
+	</table>
 </div>
+<script type="text/javascript">
+	function channelCtrl($scope, $http) {
+		var contentType = 'application/x-www-form-urlencoded; charset=UTF-8';
+		$scope.error = "";
+		$scope.msg = "";
+		$scope.channels = <%=request.getAttribute("list")%>;
+
+		$scope.addChannel = function () {
+			$http.post("/channel/create", {'name': $scope.name, 'dir': $scope.dir}, {'Content-Type': contentType}
+			).success(function (data, status) {
+						$scope.channels.push(data);
+						$scope.name = '';
+						$scope.dir = '';
+						$scope.msg = status + ' => 创建频道[' + $scope.name + ']成功';
+					}).error(function (data, status) {
+						$scope.error = status + ' => ' + data;
+					});
+		};
+
+
+		$scope.deleteChannel = function (channel) {
+			$http.post("/channel/delete", {'id': channel.id}, {'Content-Type': contentType}
+			).success(function (data, status) {
+						$scope.channels.splice($scope.channels.indexOf(channel), 1);
+						$scope.msg = status + ' => 删除频道[' + channel.name + ']成功';
+					}).error(function (data, status) {
+						$scope.error = status + ' => ' + data;
+					});
+		};
+
+	}
+</script>
+<style>
+	#ng_channel input {
+		margin-right: 15px;
+	}
+</style>

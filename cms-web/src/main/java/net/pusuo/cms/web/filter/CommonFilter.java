@@ -5,20 +5,20 @@ import java.io.IOException;
 
 
 public class CommonFilter implements Filter {
-    private final static String USER_SRC_COOKIE_DOMAIN = ".pusuo.net";
+	private final static String USER_SRC_COOKIE_DOMAIN = ".pusuo.net";
 
-    @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
-    }
+	@Override
+	public void init(FilterConfig filterConfig) throws ServletException {
+	}
 
-    @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        filterChain.doFilter(servletRequest, servletResponse);
-    }
+	@Override
+	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+		filterChain.doFilter(servletRequest, servletResponse);
+	}
 
-    @Override
-    public void destroy() {
-    }
+	@Override
+	public void destroy() {
+	}
 
 //    private Cookie getSrcCookie(HttpServletRequest request) {
 //        String value = ToolKit.getCookie(request, USER_SRC_COOKIE_KEY);

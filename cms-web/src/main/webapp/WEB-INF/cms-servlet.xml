@@ -7,24 +7,24 @@
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
 
-    <!-- Scans the classpath of the application for @Components to deploy as beans -->
-    <context:component-scan base-package="net.pusuo.cms.web.web"/>
-    <mvc:annotation-driven/>
-    <mvc:resources mapping="/favicon.ico" location="favicon.ico"/>
+	<!-- Scans the classpath of the application for @Components to deploy as beans -->
+	<context:component-scan base-package="net.pusuo.cms.web.web"/>
+	<mvc:annotation-driven/>
+	<!--<mvc:resources mapping="/favicon.ico" location="/images/ico/favicon.ico"/>-->
 
-    <mvc:resources mapping="/images/**" location="images/"/>
-    <mvc:resources mapping="/css/**" location="css/"/>
-    <mvc:resources mapping="/js/**" location="js/"/>
+	<mvc:resources mapping="/images/**" location="images/"/>
+	<mvc:resources mapping="/css/**" location="css/"/>
+	<mvc:resources mapping="/js/**" location="js/"/>
 
-    <!--<bean id="handlerMapping" class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">-->
-    <!--<property name="defaultHandler">-->
-    <!--<bean class="com.sohu.twitter.web.DefaultController"/>-->
-    <!--</property>-->
-    <!--</bean>-->
+	<!--<bean id="handlerMapping" class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">-->
+	<!--<property name="defaultHandler">-->
+	<!--<bean class="com.sohu.twitter.web.DefaultController"/>-->
+	<!--</property>-->
+	<!--</bean>-->
 
-    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="prefix" value="/WEB-INF/pages/"/>
-        <property name="suffix" value=".jsp"/>
-    </bean>
-    <bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"/>
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/pages/"/>
+		<property name="suffix" value=".jsp"/>
+	</bean>
+	<bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"/>
 </beans>

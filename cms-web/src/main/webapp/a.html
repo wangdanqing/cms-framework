@@ -1,24 +1,22 @@
 <div class="well sidebar-nav">
-    <ul class="nav nav-list" id="menu-list">
-    loading...
-    </ul>
+	<ul class="nav nav-list" id="menu-list">
+		loading...
+	</ul>
 </div>
 
 <script src="js/jquery.js"></script>
 <script>
 
 
-
-
-$.ajax({
-   url:'http://www.baidu.com',
-   type:'get',
-   error:function(){
-      alert('error');
-   },
-   success:function(data){
-      alert(data)
-   }
-});
+	$.ajax({
+		url: 'http://www.baidu.com',
+		type: 'get',
+		error: function () {
+			alert('error');
+		},
+		success: function (data) {
+			alert(data)
+		}
+	});
 
 </script>

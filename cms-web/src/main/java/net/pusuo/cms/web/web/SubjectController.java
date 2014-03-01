@@ -4,7 +4,7 @@ import net.pusuo.cms.core.bean.Channel;
 import net.pusuo.cms.core.bean.Subject;
 import net.pusuo.cms.web.service.ChannelService;
 import net.pusuo.cms.web.service.SubjectService;
-import net.pusuo.cms.web.util.ChannelUtil;
+import net.pusuo.cms.web.util.CommonViewUtil;
 import net.pusuo.cms.web.util.Constants;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,94 +27,86 @@ import java.util.Map;
 @RequestMapping(value = "subject")
 public class SubjectController {
 
-    private final SubjectService service = new SubjectService();
-    private final ChannelService channelService = new ChannelService();
+	private final SubjectService service = new SubjectService();
+	private final ChannelService channelService = new ChannelService();
 
-    @RequestMapping("list")
-    public ModelAndView list() {
-        ModelAndView view = new ModelAndView("index");
-        ChannelUtil.fillChannel(view);
+	@RequestMapping("list")
+	public ModelAndView list() {
+		List<Subject> list = service.query(0);
+		return CommonViewUtil.renderListView("subject/_subject_list.jsp", list);
+	}
 
-        List<Subject> list = service.query(0);
-        view.addObject("subject_list", list);
-        view.addObject(Constants.var_include, "subject/_subject_list.jsp");
+	@RequestMapping("homepage")
+	public ModelAndView getHomepage() {
+		ModelAndView view = new ModelAndView("index");
+		CommonViewUtil.fillChannel(view);
 
-        return view;
-    }
+		List<Subject> list = service.getHomePageList();
+		view.addObject("home_list", list);
 
-    @RequestMapping("homepage")
-    public ModelAndView getHomepage() {
-        ModelAndView view = new ModelAndView("index");
-        ChannelUtil.fillChannel(view);
+		List<Channel> channelList = channelService.query(0);
+		view.addObject("channel_list", channelList);
 
-        List<Subject> list = service.getHomePageList();
-        view.addObject("home_list", list);
+		view.addObject(Constants.var_include, "subject/_homepage_list.jsp");
 
-        List<Channel> channelList = channelService.query(0);
-        view.addObject("channel_list", channelList);
+		Map<Channel, Subject> map = new HashMap<Channel, Subject>();
+		for (Channel ch : channelList) {
+			for (Subject subject : list) {
+				if (subject.getChannelId() == ch.getId()) {
+					map.put(ch, subject);
+					break;
+				} else {
+					map.put(ch, null);
+				}
+			}
+		}
 
-        view.addObject(Constants.var_include, "subject/_homepage_list.jsp");
+		view.addObject("channel_homepage", map);
 
-        Map<Channel, Subject> map = new HashMap<Channel, Subject>();
-        for (Channel ch : channelList) {
-            for (Subject subject : list) {
-                if (subject.getChannelId() == ch.getId()) {
-                    map.put(ch, subject);
-                    break;
-                } else {
-                    map.put(ch, null);
-                }
-            }
-        }
+		return view;
+	}
 
-        view.addObject("channel_homepage", map);
+	@RequestMapping("createHomepage")
+	public ModelAndView createHomepage(HttpServletRequest requet) {
+		String name = requet.getParameter("name");
+		String desc = requet.getParameter("desc");
+		String templateId = requet.getParameter("templateId");
+		String channelId = requet.getParameter("channelId");
+		if (name == null || desc == null || templateId == null || channelId == null) {
+			try {
+				throw new Exception();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		Subject home = new Subject();
+		home.setChannelId(Integer.parseInt(channelId.trim()));
+		home.setDesc(desc);
+		home.setName(name);
+		home.setTemplateId(Integer.parseInt(templateId));
+		home.setParentId(-1);
+		home.setFullpath("/");
+		home.setCtime(System.currentTimeMillis());
+		home.setPriority(60);
+		home.setStatus(0);
+		home.setEditorId(0);
+		home.setBakTemplateList("");
+		home.setType(0);
 
-        return view;
-    }
+		service.insert(home);
 
-    @RequestMapping("createHomepage")
-    public ModelAndView createHomepage(HttpServletRequest requet) {
-        String name = requet.getParameter("name");
-        String desc = requet.getParameter("desc");
-        String templateId = requet.getParameter("templateId");
-        String channelId = requet.getParameter("channelId");
-        if (name == null || desc == null || templateId == null || channelId == null) {
-            try {
-                throw new Exception();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        Subject home = new Subject();
-        home.setChannelId(Integer.parseInt(channelId.trim()));
-        home.setDesc(desc);
-        home.setName(name);
-        home.setTemplateId(Integer.parseInt(templateId));
-        home.setParentId(-1);
-        home.setFullpath("/");
-        home.setCtime(System.currentTimeMillis());
-        home.setPriority(60);
-        home.setStatus(0);
-        home.setEditorId(0);
-        home.setBakTemplateList("");
-        home.setType(0);
+		////////////     todo ajax
+		ModelAndView view = new ModelAndView("index");
+		CommonViewUtil.fillChannel(view);
 
-        service.insert(home);
+		List<Subject> list = service.getHomePageList();
+		view.addObject("home_list", list);
 
-        ////////////     todo ajax
-        ModelAndView view = new ModelAndView("index");
-        ChannelUtil.fillChannel(view);
+		List<Channel> channelList = channelService.query(0);
+		view.addObject("channel_list", channelList);
 
-        List<Subject> list = service.getHomePageList();
-        view.addObject("home_list", list);
+		view.addObject(Constants.var_include, "subject/_homepage_list.jsp");
 
-        List<Channel> channelList = channelService.query(0);
-        view.addObject("channel_list", channelList);
-
-        view.addObject(Constants.var_include, "subject/_homepage_list.jsp");
-
-        return view;
-    }
-
-
+		return view;
+	}
 }

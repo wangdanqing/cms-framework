@@ -24,41 +24,41 @@ import java.util.List;
 @RequestMapping(value = "menu")
 public class MenuController {
 
-    private final ChannelService channelService = new ChannelService();
-    JsonFactory jsonFactory = new JsonFactory();
+	private final ChannelService channelService = new ChannelService();
+	JsonFactory jsonFactory = new JsonFactory();
 
-    @RequestMapping("getall")
-    public String getAll(HttpServletRequest request) {
-        List<Channel> list = channelService.query(0);
+	@RequestMapping("getall")
+	public String getAll(HttpServletRequest request) {
+		List<Channel> list = channelService.query(0);
 
-        StringWriter stringWriter = new StringWriter();
-        try {
-            JsonGenerator g = jsonFactory.createJsonGenerator(stringWriter);
-            g.writeStartArray();
-            for (Channel ch : list) {
-                g.writeStartObject();
-                g.writeNumberField("channelId", ch.getId());
-                g.writeStringField("name", ch.getName());
-                g.writeStringField("dir", ch.getDir());
-                g.writeEndObject();
-            }
-            g.writeEndArray();
-            g.close(); // important: will force flushing of output, close underlying output stream
+		StringWriter stringWriter = new StringWriter();
+		try {
+			JsonGenerator g = jsonFactory.createJsonGenerator(stringWriter);
+			g.writeStartArray();
+			for (Channel ch : list) {
+				g.writeStartObject();
+				g.writeNumberField("channelId", ch.getId());
+				g.writeStringField("name", ch.getName());
+				g.writeStringField("dir", ch.getDir());
+				g.writeEndObject();
+			}
+			g.writeEndArray();
+			g.close(); // important: will force flushing of output, close underlying output stream
 
-            String ret = g.getOutputTarget().toString();
-            System.out.println("menu: " + ret);
-            return ret;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+			String ret = g.getOutputTarget().toString();
+			System.out.println("menu: " + ret);
+			return ret;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
-        return "";
-    }
+		return "";
+	}
 
-    @RequestMapping("getbyChannelId")
-    public String getByChannelId(HttpServletRequest request) {
+	@RequestMapping("getbyChannelId")
+	public String getByChannelId(HttpServletRequest request) {
 
-        return "";
-    }
+		return "";
+	}
 
 }

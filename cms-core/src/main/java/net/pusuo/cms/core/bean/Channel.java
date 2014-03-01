@@ -1,49 +1,60 @@
 package net.pusuo.cms.core.bean;
 
 
-public class Channel extends Item {
+import net.minidev.json.JSONObject;
 
-    private static final long serialVersionUID = -72762959500782694L;
-    private int id;
-    private String name;
-    private String dir;
+public class Channel extends Item implements IHelper {
 
-    public Channel() {
-    }
+	private static final long serialVersionUID = -72762959500782694L;
+	private int id;
+	private String name;
+	private String dir;
 
-    public Channel(int id, String name, String dir) {
-        this.id = id;
-        this.name = name;
-        this.dir = dir;
-    }
+	public Channel() {
+	}
+
+	public Channel(int id, String name, String dir) {
+		this.id = id;
+		this.name = name;
+		this.dir = dir;
+	}
+
+	public JSONObject toJson() {
+		JSONObject ret = new JSONObject();
+		ret.put("id", id);
+		ret.put("name", name);
+		ret.put("dir", dir);
+
+		return ret;
+	}
 
 
-    public long getId() {
-        return id;
-    }
+	public long getId() {
+		return id;
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public String getDir() {
-        return dir;
-    }
+	public String getDir() {
+		return dir;
+	}
 
-    public void setDir(String dir) {
-        this.dir = dir;
-    }
+	public void setDir(String dir) {
+		this.dir = dir;
+	}
 
-    public String toString() {
-        return getClass().getName() + " #" + getId();
-    }
+	public String toString() {
+		return getClass().getName() + " #" + getId();
+	}
 }
 

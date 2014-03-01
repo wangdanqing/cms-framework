@@ -11,29 +11,29 @@ import org.skife.jdbi.v2.sqlobject.helpers.MapResultAsBean;
 import java.util.List;
 
 /**
- * data access object
- * User: shijinkui
- * Time: ${date}
- * Generate by Util class
- */
+* data access object
+* User: shijinkui
+* Time: ${date}
+* Generate by Util class
+*/
 @RegisterMapper(${classname}Mapper.class)
 public interface ${classname}Dao {
 
-    @SqlUpdate("insert into channel (${sql_insert}) values (:name, :dir)")
-    public void insert(@BindBean ${classname} ${classnane_var});
+@SqlUpdate("insert into channel (${sql_insert}) values (:name, :dir)")
+public void insert(@BindBean ${classname} ${classnane_var});
 
-    @SqlQuery("select * from channel where id = :id")
-    @MapResultAsBean
-    public ${classname} getById(@Bind("id") long id);
+@SqlQuery("select * from channel where id = :id")
+@MapResultAsBean
+public ${classname} getById(@Bind("id") long id);
 
-    @SqlQuery("select * from channel where id > :id order by id asc")
-    public List<${classname}> query(@Bind("id") long id);
+@SqlQuery("select * from channel where id > :id order by id asc")
+public List<${classname}> query(@Bind("id") long id);
 
-    @SqlQuery("delete channel where id = :id")
-    public List<${classname}> delete(@Bind("id") long id);
+@SqlQuery("delete channel where id = :id")
+public List<${classname}> delete(@Bind("id") long id);
 
-    @SqlUpdate("update channel set ${sql_update} where id = :id")
-    int update(@BindBean ${classname} bean);
+@SqlUpdate("update channel set ${sql_update} where id = :id")
+int update(@BindBean ${classname} bean);
 }
 
 

@@ -7,47 +7,47 @@ import net.pusuo.cms.core.bean.Item;
  */
 public class Author extends Item {
 
-    private static final long serialVersionUID = 8998288499976219376L;
-    private long id;
-    private String name;
-    private String desc;
-    private String url;
+	private static final long serialVersionUID = 8998288499976219376L;
+	private long id;
+	private String name;
+	private String desc;
+	private String url;
 
 
-    public long getId() {
-        return id;
-    }
+	public long getId() {
+		return id;
+	}
 
-    public void setId(long id) {
-        this.id = id;
-    }
+	public void setId(long id) {
+		this.id = id;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public String getDesc() {
-        return desc;
-    }
+	public String getDesc() {
+		return desc;
+	}
 
-    public void setDesc(String desc) {
-        this.desc = desc;
-    }
+	public void setDesc(String desc) {
+		this.desc = desc;
+	}
 
-    public String getUrl() {
-        return url;
-    }
+	public String getUrl() {
+		return url;
+	}
 
-    public void setUrl(String url) {
-        this.url = url;
-    }
+	public void setUrl(String url) {
+		this.url = url;
+	}
 
-    public String toString() {
-        return getClass().getName() + " #" + getId();
-    }
+	public String toString() {
+		return getClass().getName() + " #" + getId();
+	}
 }
 

@@ -3,16 +3,16 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <!-- Enable @AspectJ support -->
-    <!--<aop:aspectj-autoproxy />-->
-    <!--<context:component-scan base-package="com.sohu.twitter" />-->
+	<!-- Enable @AspectJ support -->
+	<!--<aop:aspectj-autoproxy />-->
+	<!--<context:component-scan base-package="com.sohu.twitter" />-->
 
-    <!-- Configures the @Controller programming model 要用这行，必须加上面那行 -->
-    <!--<mvc:annotation-driven />-->
+	<!-- Configures the @Controller programming model 要用这行，必须加上面那行 -->
+	<!--<mvc:annotation-driven />-->
 
-    <!-- <import resource="classpath:dao-beans.xml2"/> <import resource="classpath:group-dao-beans.xml2"/>
-        <import resource="classpath:dao-new-beans.xml"/> <import resource="classpath:nameService.xml"/> -->
-    <!-- <import resource="classpath:cacheContext.xml" /> -->
+	<!-- <import resource="classpath:dao-beans.xml2"/> <import resource="classpath:group-dao-beans.xml2"/>
+		<import resource="classpath:dao-new-beans.xml"/> <import resource="classpath:nameService.xml"/> -->
+	<!-- <import resource="classpath:cacheContext.xml" /> -->
 
 
 </beans>

@@ -16,40 +16,40 @@ import java.util.List;
  */
 public class SubjectService implements IService<Subject> {
 
-    private final DBI dbi = DaoFactory.getSubjectDBI();
+	private final DBI dbi = DaoFactory.getSubjectDBI();
 
-    @Override
-    public void insert(Subject subject) {
-        SubjectDao dao = dbi.onDemand(SubjectDao.class);
-        dao.insertBean(subject);
-    }
+	@Override
+	public void insert(Subject subject) {
+		SubjectDao dao = dbi.onDemand(SubjectDao.class);
+		dao.insertBean(subject);
+	}
 
-    @Override
-    public Subject getById(int id) {
-        SubjectDao dao = dbi.onDemand(SubjectDao.class);
-        return dao.findById(id);
-    }
+	@Override
+	public Subject getById(int id) {
+		SubjectDao dao = dbi.onDemand(SubjectDao.class);
+		return dao.findById(id);
+	}
 
-    @Override
-    public void delete(int id) {
-        SubjectDao dao = dbi.onDemand(SubjectDao.class);
-        dao.delete(id);
-    }
+	@Override
+	public void delete(int id) {
+		SubjectDao dao = dbi.onDemand(SubjectDao.class);
+		dao.delete(id);
+	}
 
-    @Override
-    public List<Subject> query(int key) {
-        SubjectDao dao = dbi.onDemand(SubjectDao.class);
-        return dao.queryByChannel(key);
-    }
+	@Override
+	public List<Subject> query(int key) {
+		SubjectDao dao = dbi.onDemand(SubjectDao.class);
+		return dao.queryByChannel(key);
+	}
 
-    public List<Subject> getHomePageList() {
-        SubjectDao dao = dbi.onDemand(SubjectDao.class);
-        return dao.queryChannelList();
-    }
+	public List<Subject> getHomePageList() {
+		SubjectDao dao = dbi.onDemand(SubjectDao.class);
+		return dao.queryChannelList();
+	}
 
-    @Override
-    public boolean update(Subject obj) {
-        SubjectDao dao = dbi.onDemand(SubjectDao.class);
-        return dao.update(obj) > 0;
-    }
+	@Override
+	public boolean update(Subject obj) {
+		SubjectDao dao = dbi.onDemand(SubjectDao.class);
+		return dao.update(obj) > 0;
+	}
 }

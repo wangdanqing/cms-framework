@@ -8,5 +8,5 @@ package net.pusuo.cms.web.util;
  * To change this template use File | Settings | File Templates.
  */
 public class Constants {
-    public final static String var_include = "include_page";
+	public final static String var_include = "include_page";
 }

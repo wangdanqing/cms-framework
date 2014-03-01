@@ -1,57 +1,31 @@
-<%
-    String user = (String) session.getAttribute("user");
-    if (user == null || user.equals("null")) {
-        System.out.println("未登录跳转====>" + user);
+<% String user = (String) session.getAttribute("user");
+	if (user == null || user.equals("null")) {
+		System.out.println("未登录跳转====>" + user);
 //        response.sendRedirect("/user/login");
 //        return;
-    }
-%><%@ page contentType="text/html;charset=utf-8" language="java" %>
+	}%>
+<%@ page contentType="text/html;charset=utf-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app>
 <head>
-    <jsp:include page="inc/meta.jsp" />
+	<jsp:include page="inc/meta.jsp"/>
 </head>
-
 <body>
-
 <jsp:include page="inc/header.jsp" flush="true"/>
 <div class="container-fluid">
-    <div class="row-fluid">
-        <div class="span3">
-            <jsp:include page="inc/menu.jsp" flush="true"/>
-        </div>
-        <!--/span-->
-        <div class="span9">
-            <jsp:include page="${include_page}"/>
-        </div>
-        <!--/span-->
-    </div>
-    <!--/row-->
-
-    <hr>
-
-    <footer>
-        <p>&copy; Company 2013</p>
-    </footer>
-
+	<div class="row">
+		<div class="col-sm-3 col-md-2 sidebar">
+			<jsp:include page="inc/menu.jsp" flush="true"/>
+		</div>
+		<div class="span9">
+			<jsp:include page="${include_page}"/>
+		</div>
+	</div>
+	<hr>
+	<footer>
+		<jsp:include page="inc/footer.jsp"/>
+	</footer>
 </div>
-<!--/.fluid-container-->
-
-<!-- Le javascript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="/js/bootstrap-transition.js"></script>
-<script src="/js/bootstrap-alert.js"></script>
-<script src="/js/bootstrap-modal.js"></script>
-<script src="/js/bootstrap-dropdown.js"></script>
-<script src="/js/bootstrap-scrollspy.js"></script>
-<script src="/js/bootstrap-tab.js"></script>
-<script src="/js/bootstrap-tooltip.js"></script>
-<script src="/js/bootstrap-popover.js"></script>
-<script src="/js/bootstrap-button.js"></script>
-<script src="/js/bootstrap-collapse.js"></script>
-<script src="/js/bootstrap-carousel.js"></script>
-<script src="/js/bootstrap-typeahead.js"></script>
 </body>
 </html>

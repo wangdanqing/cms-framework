@@ -1,8 +1,12 @@
 package net.pusuo.cms.web.web;
 
+import net.minidev.json.JSONArray;
+import net.minidev.json.JSONObject;
 import net.pusuo.cms.core.bean.Channel;
 import net.pusuo.cms.web.service.ChannelService;
-import net.pusuo.cms.web.util.ChannelUtil;
+import net.pusuo.cms.web.util.CommonViewUtil;
+import net.pusuo.cms.web.util.Constant;
+import net.pusuo.cms.web.util.FormRequestUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,59 +25,71 @@ import java.util.List;
 @Controller
 @RequestMapping("channel")
 public class ChannelController {
+	private final ChannelService channelService = new ChannelService();
 
-    private final ChannelService channelService = new ChannelService();
+	@RequestMapping("list")
+	public ModelAndView list() {
+		List<Channel> list = channelService.query(0);
+		JSONArray array = new JSONArray();
+		for (Channel ch : list) {
+			array.add(ch.toJson());
+		}
 
-    @RequestMapping("list")
-    public ModelAndView list() {
-        ModelAndView view = new ModelAndView("index");
-        List<Channel> list = channelService.query(0);
-        view.addObject("list", list);
-        view.addObject("include_page", "_channel.jsp");
-        ChannelUtil.fillChannel(view);
+		return CommonViewUtil.renderListView("_channel.jsp", array.toJSONString());
+	}
 
-        return view;
-    }
+	@RequestMapping(value = "create", method = RequestMethod.POST)
+	public ModelAndView add(HttpServletRequest request) {
+		ModelAndView view = new ModelAndView(Constant.COMMON_JSON_PAGE);
 
-    @RequestMapping(value = "add", method = RequestMethod.POST)
-    public ModelAndView add(HttpServletRequest request) {
-        String name = request.getParameter("name");
-        String dir = request.getParameter("dir");
-        if (name == null || dir == null) {
-            return null;
-        }
-        Channel ch = new Channel();
-        ch.setDir(dir);
-        ch.setName(name);
-        channelService.insert(ch);
+		JSONObject json = FormRequestUtil.parseData(request);
+		String name = (String) json.get("name");
+		String dir = (String) json.get("dir");
+		if (name == null || dir == null) {
+			view.addObject("result", "频道名和频道目录不能为空");
+			return view;
+		}
 
-        //
-        ModelAndView view = new ModelAndView("index");
-        List<Channel> list = channelService.query(0);
-        view.addObject("list", list);
-        view.addObject("include_page", "_channel.jsp");
+		Channel ch = new Channel();
+		ch.setDir(dir);
+		ch.setName(name);
+		channelService.insert(ch);
 
-        ChannelUtil.fillChannel(view);
-        return view;
-    }
+		Channel channel = channelService.findByName(dir);
+		view.addObject("result", channel.toJson().toString());
+		return view;
+	}
 
-    @RequestMapping(value = "delete", method = RequestMethod.POST)
-    public ModelAndView delete(HttpServletRequest request) {
-        String id = request.getParameter("id");
-        if (id == null) {
-            return null;
-        }
+	/**
+	 * 删除频道
+	 *
+	 * @param request request
+	 *
+	 * @return json
+	 */
+	@RequestMapping(value = "delete", method = RequestMethod.POST)
+	public ModelAndView delete(HttpServletRequest request) {
+		JSONObject json = FormRequestUtil.parseData(request);
+		ModelAndView view = new ModelAndView(Constant.COMMON_JSON_PAGE);
 
-        channelService.delete(Integer.parseInt(id));
+		Object _id = json.get("id");
+		if (_id == null) {
+			return null;
+		}
+		int id = Integer.parseInt(_id.toString());
+		Channel channel = channelService.getById(id);
+		if (channel != null) {
+			channelService.delete(id);
+			JSONObject jsonObject = new JSONObject();
+			jsonObject.put("id", channel.getId());
+			jsonObject.put("name", channel.getName());
+			jsonObject.put("dir", channel.getDir());
+			view.addObject("result", jsonObject.toJSONString());
+		} else {
+			view.addObject("result", "频道[id=" + _id + "]不存在");
+		}
 
-        //
-        ModelAndView view = new ModelAndView("index");
-        List<Channel> list = channelService.query(0);
-        view.addObject("list", list);
-        view.addObject("include_page", "_channel.jsp");
-
-        ChannelUtil.fillChannel(view);
-        return view;
-    }
+		return view;
+	}
 
 }

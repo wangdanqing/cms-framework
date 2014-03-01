@@ -20,102 +20,102 @@ import java.io.*;
  */
 public class VelocityUtil {
 
-    private SmcVelocityEngine engine = SmcVelocityEngine.getInstance();
+	private SmcVelocityEngine engine = SmcVelocityEngine.getInstance();
 
-    /**
-     * Velocity容器
-     */
-    private VelocityContext context;
-    /**
-     * 模板
-     */
-    private Template template;
+	/**
+	 * Velocity容器
+	 */
+	private VelocityContext context;
+	/**
+	 * 模板
+	 */
+	private Template template;
 
-    public VelocityUtil() {
-        this.context = new VelocityContext();
-    }
+	public VelocityUtil() {
+		this.context = new VelocityContext();
+	}
 
-    /**
-     * 往容器中添加内容
-     *
-     * @param key
-     * @param value
-     */
-    public void setContextValue(String key, Object value) {
-        context.put(key, value);
-    }
+	/**
+	 * 往容器中添加内容
+	 *
+	 * @param key
+	 * @param value
+	 */
+	public void setContextValue(String key, Object value) {
+		context.put(key, value);
+	}
 
-    public void clearContext() {
-        Object[] keys = context.getKeys();
-        for (Object obj : keys) {
-            context.remove(obj);
-        }
-    }
+	public void clearContext() {
+		Object[] keys = context.getKeys();
+		for (Object obj : keys) {
+			context.remove(obj);
+		}
+	}
 
-    /**
-     * 设置Velocity模板
-     *
-     * @param tplName
-     */
-    public void setTemplate(String tplName) {
-        try {
-            if (!tplName.endsWith(".vm")) {
-                tplName += ".vm";
-            }
-            template = engine.getTemplate(tplName);
-        } catch (ResourceNotFoundException e1) {
-            throw new RuntimeException("[" + tplName + "] can not found.");
-        } catch (ParseErrorException e2) {
-            throw new RuntimeException("template parse exception.");
-        } catch (Exception e3) {
-            throw new RuntimeException("velocity set template exception.");
-        }
-    }
+	/**
+	 * 设置Velocity模板
+	 *
+	 * @param tplName
+	 */
+	public void setTemplate(String tplName) {
+		try {
+			if (!tplName.endsWith(".vm")) {
+				tplName += ".vm";
+			}
+			template = engine.getTemplate(tplName);
+		} catch (ResourceNotFoundException e1) {
+			throw new RuntimeException("[" + tplName + "] can not found.");
+		} catch (ParseErrorException e2) {
+			throw new RuntimeException("template parse exception.");
+		} catch (Exception e3) {
+			throw new RuntimeException("velocity set template exception.");
+		}
+	}
 
-    /**
-     * 合并数据到模板，以字符串形式返回
-     */
-    public String mergeToString() {
-        String result = "";
+	/**
+	 * 合并数据到模板，以字符串形式返回
+	 */
+	public String mergeToString() {
+		String result = "";
 
-        Writer writer = new StringWriter();
-        try {
-            template.merge(context, writer);
-            result = writer.toString();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                writer.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+		Writer writer = new StringWriter();
+		try {
+			template.merge(context, writer);
+			result = writer.toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				writer.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 
-        return result;
-    }
+		return result;
+	}
 
-    /**
-     * 合并数据到模板并写回文件
-     *
-     * @param filePathName
-     */
-    public void mergeToFile(String filePathName) {
-        BufferedWriter writer = null;
-        try {
-            writer = new BufferedWriter(new FileWriter(filePathName));
-            template.merge(context, writer);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (writer != null) {
-                try {
-                    writer.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
+	/**
+	 * 合并数据到模板并写回文件
+	 *
+	 * @param filePathName
+	 */
+	public void mergeToFile(String filePathName) {
+		BufferedWriter writer = null;
+		try {
+			writer = new BufferedWriter(new FileWriter(filePathName));
+			template.merge(context, writer);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (writer != null) {
+				try {
+					writer.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
 
 }

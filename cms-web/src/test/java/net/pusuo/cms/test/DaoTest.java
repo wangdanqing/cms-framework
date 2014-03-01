@@ -24,24 +24,24 @@ public class DaoTest {
 //    Connection conn = DriverManager.getConnection("proxool.smc-datasource");
 
 
-    public static void main(String... args) throws SQLException {
-        Connection conn = DriverManager.getConnection("proxool.smc-datasource");
+	public static void main(String... args) throws SQLException {
+		Connection conn = DriverManager.getConnection("proxool.smc-datasource");
 
-        DataSource ds = JdbcConnectionPool.create("jdbc:h2:mem:test",
-                "username",
-                "password");
-        DBI dbi = new DBI(ds);
-        Handle h = dbi.open();
-        h.execute("create table something (id int primary key, name varchar(100))");
+		DataSource ds = JdbcConnectionPool.create("jdbc:h2:mem:test",
+				"username",
+				"password");
+		DBI dbi = new DBI(ds);
+		Handle h = dbi.open();
+		h.execute("create table something (id int primary key, name varchar(100))");
 
-        h.execute("insert into something (id, name) values (?, ?)", 1, "Brian");
+		h.execute("insert into something (id, name) values (?, ?)", 1, "Brian");
 
-        String name = h.createQuery("select name from something where id = :id")
-                .bind("id", 1)
-                .map(StringMapper.FIRST)
-                .first();
-        System.out.println(name);
+		String name = h.createQuery("select name from something where id = :id")
+				.bind("id", 1)
+				.map(StringMapper.FIRST)
+				.first();
+		System.out.println(name);
 
-        h.close();
-    }
+		h.close();
+	}
 }
