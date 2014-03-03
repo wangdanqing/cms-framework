@@ -38,10 +38,11 @@
 			<div class="input-group col-lg-12">
 				<div class="input-group">
 					<span class="input-group-addon">模版内容</span>
-					<textarea class="form-control" rows="30" cols="60" name="content"><c:out
+					<textarea class="form-control" rows="24" cols="60" name="content"><c:out
 							value="${item.content}"/></textarea>
 				</div>
 			</div>
+			<p/>
 			<p/>
 			<button type="submit" class="btn btn-default">提交</button>
 		</form>

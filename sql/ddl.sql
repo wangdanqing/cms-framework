@@ -3,6 +3,35 @@ CREATE DATABASE IF NOT EXISTS cms_framework
 
 USE cms_framework;
 
+CREATE TABLE entity_item (
+  id         BIGINT PRIMARY KEY  NOT NULL,
+  pid        INT                 NOT NULL,
+  title      VARCHAR(128)        NOT NULL,
+  subhead    VARCHAR(128),
+  content    BLOB,
+  ctime      TIMESTAMP           NOT NULL,
+  uptime     TIMESTAMP           NOT NULL,
+  priority   TINYINT DEFAULT 60,
+  status     TINYINT             NOT NULL,
+  channelId  INT                 NOT NULL,
+  mediaId    INT,
+  author     VARCHAR(56),
+  editor     INT                 NOT NULL,
+  dutyEditor INT,
+  url        VARCHAR(256),
+  category   VARCHAR(512)        NOT NULL,
+  shortName  VARCHAR(56),
+  keyword    VARCHAR(56),
+  pictures   VARCHAR(512),
+  reurl      VARCHAR(256),
+  tags       VARCHAR(56)
+);
+
+CREATE TABLE id_seq (
+  id BIGINT PRIMARY KEY NOT NULL
+  `group` VARCHAR(56) NOT NULL
+);
+
 CREATE TABLE cms_framework.channel
 (
   id   INT PRIMARY KEY AUTO_INCREMENT NOT NULL,

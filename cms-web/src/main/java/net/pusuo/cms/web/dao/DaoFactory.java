@@ -45,4 +45,10 @@ public class DaoFactory {
 
 		return new DBI(ds);
 	}
+
+	public static DBI getEntityItemDBI() {
+		DataSource ds = (DataSource) bf.getBean("datasource");
+
+		return new DBI(ds);
+	}
 }

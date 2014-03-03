@@ -7,4 +7,5 @@ package net.pusuo.cms.web.util;
 public class Constant {
 
 	public static final String COMMON_JSON_PAGE = "common/result";    //	json数据页面
+	public static final String CATEGORY_SEP = ";";
 }

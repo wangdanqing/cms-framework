@@ -1,28 +1,37 @@
 package net.pusuo.cms.core.bean;
 
+
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
- * EntityItem所有Entity的基类
+ * 实体对象
+ * 可以是新闻, 文章等文字内容
  */
 public class EntityItem extends Item {
 
-	private static final long serialVersionUID = -3721729566644823912L;
-
+	private static final long serialVersionUID = -928413065422581527L;
 	private long id;
-	private long pid;
-	private String name;
-	private String desc;
-	private long time;
-	private int priority = 0;
-	private int status = 0;
-	private int channel;
-	private int editor; //编辑
-	private long template;//唯一的模板
-	private String url;
-	private List<Long> category; //目录id
-	private String param;
-	private String shortname;
+	private int pid;                //	父栏目ID
+	private String title;            //	标题
+	private String subhead;            //	副标题
+	private String content;            //	正文内容
+	private Timestamp ctime;        //	创建时间
+	private Timestamp uptime;        //	修改时间
+	private int priority = 60;        //	权重
+	private int status = STATUS_ENABLE;
+	private int channelId;            //	频道
+	private int mediaId;        //	媒体Id
+	private String author;        //	作者
+	private int editor;                //	编辑
+	private int dutyEditor;        //	责任编辑
+	private String url;                //	生成的静态永久地址
+	private List<Integer> category;    //	目录id
+	private String shortName;        //	短引用
+	private String keyword;            //	关键词
+	private List<Long> pictures;        //	图片id list
+	private String reurl;            //	跳转链接
+	private String tags;            //	tag
 
 	public long getId() {
 		return id;
@@ -32,36 +41,52 @@ public class EntityItem extends Item {
 		this.id = id;
 	}
 
-	public long getPid() {
+	public int getPid() {
 		return pid;
 	}
 
-	public void setPid(long pid) {
+	public void setPid(int pid) {
 		this.pid = pid;
 	}
 
-	public String getName() {
-		return name;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
-	public String getDesc() {
-		return desc;
+	public String getSubhead() {
+		return subhead;
 	}
 
-	public void setDesc(String desc) {
-		this.desc = desc;
+	public void setSubhead(String subhead) {
+		this.subhead = subhead;
 	}
 
-	public long getTime() {
-		return time;
+	public String getContent() {
+		return content;
 	}
 
-	public void setTime(long time) {
-		this.time = time;
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public Timestamp getCtime() {
+		return ctime;
+	}
+
+	public void setCtime(Timestamp ctime) {
+		this.ctime = ctime;
+	}
+
+	public Timestamp getUptime() {
+		return uptime;
+	}
+
+	public void setUptime(Timestamp uptime) {
+		this.uptime = uptime;
 	}
 
 	public int getPriority() {
@@ -80,12 +105,28 @@ public class EntityItem extends Item {
 		this.status = status;
 	}
 
-	public int getChannel() {
-		return channel;
+	public int getChannelId() {
+		return channelId;
 	}
 
-	public void setChannel(int channel) {
-		this.channel = channel;
+	public void setChannelId(int channelId) {
+		this.channelId = channelId;
+	}
+
+	public int getMediaId() {
+		return mediaId;
+	}
+
+	public void setMediaId(int mediaId) {
+		this.mediaId = mediaId;
+	}
+
+	public String getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(String author) {
+		this.author = author;
 	}
 
 	public int getEditor() {
@@ -96,12 +137,12 @@ public class EntityItem extends Item {
 		this.editor = editor;
 	}
 
-	public long getTemplate() {
-		return template;
+	public int getDutyEditor() {
+		return dutyEditor;
 	}
 
-	public void setTemplate(long template) {
-		this.template = template;
+	public void setDutyEditor(int dutyEditor) {
+		this.dutyEditor = dutyEditor;
 	}
 
 	public String getUrl() {
@@ -112,28 +153,51 @@ public class EntityItem extends Item {
 		this.url = url;
 	}
 
-	public List<Long> getCategory() {
+	public List<Integer> getCategory() {
 		return category;
 	}
 
-	public void setCategory(List<Long> category) {
+	public void setCategory(List<Integer> category) {
 		this.category = category;
 	}
 
-	public String getParam() {
-		return param;
+	public String getShortName() {
+		return shortName;
 	}
 
-	public void setParam(String param) {
-		this.param = param;
+	public void setShortName(String shortName) {
+		this.shortName = shortName;
 	}
 
-	public String getShortname() {
-		return shortname;
+	public String getKeyword() {
+		return keyword;
 	}
 
-	public void setShortname(String shortname) {
-		this.shortname = shortname;
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
+
+	public List<Long> getPictures() {
+		return pictures;
+	}
+
+	public void setPictures(List<Long> pictures) {
+		this.pictures = pictures;
+	}
+
+	public String getReurl() {
+		return reurl;
+	}
+
+	public void setReurl(String reurl) {
+		this.reurl = reurl;
+	}
+
+	public String getTags() {
+		return tags;
+	}
+
+	public void setTags(String tags) {
+		this.tags = tags;
 	}
 }
-

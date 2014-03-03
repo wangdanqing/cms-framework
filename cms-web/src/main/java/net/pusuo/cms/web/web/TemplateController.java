@@ -8,6 +8,8 @@ import net.pusuo.cms.web.service.TemplateService;
 import net.pusuo.cms.web.util.CommonViewUtil;
 import net.pusuo.cms.web.util.Constant;
 import net.pusuo.cms.web.util.FormRequestUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,12 +18,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.List;
 
-import static net.pusuo.cms.web.util.CommonViewUtil.renderJsonView;
-import static net.pusuo.cms.web.util.CommonViewUtil.renderObjView;
+import static net.pusuo.cms.web.util.CommonViewUtil.*;
 
 /**
  * 模版的增删改查
@@ -33,6 +33,7 @@ import static net.pusuo.cms.web.util.CommonViewUtil.renderObjView;
 @Controller
 @RequestMapping("template")
 public class TemplateController {
+	private static final Logger log = LoggerFactory.getLogger(TemplateController.class);
 
 	private final TemplateService service = new TemplateService();
 
@@ -92,6 +93,7 @@ public class TemplateController {
 			return list();
 		}
 
+//		content = content == null ? "" : StringEscapeUtils.escapeHtml(content);
 		Template tmp = service.getById(Integer.parseInt(id));
 		tmp.setType(Integer.parseInt(type));
 		tmp.setName(name);
@@ -99,13 +101,8 @@ public class TemplateController {
 		tmp.setUptime(new Timestamp(System.currentTimeMillis()));
 
 		service.update(tmp);
-		try {
-			response.sendRedirect("/template/detail?id=" + id);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 
-		return renderObjView("_template_modify.jsp", tmp);
+		return renderListView("_template.jsp", tmp);
 	}
 
 	@RequestMapping(value = "delete", method = RequestMethod.POST)
