@@ -26,7 +26,7 @@ public class EntityItem extends Item {
 	private int editor;                //	编辑
 	private int dutyEditor;        //	责任编辑
 	private String url;                //	生成的静态永久地址
-	private List<Integer> category;    //	目录id
+	private String category;    //	目录id
 	private String shortName;        //	短引用
 	private String keyword;            //	关键词
 	private List<Long> pictures;        //	图片id list
@@ -153,11 +153,11 @@ public class EntityItem extends Item {
 		this.url = url;
 	}
 
-	public List<Integer> getCategory() {
+	public String getCategory() {
 		return category;
 	}
 
-	public void setCategory(List<Integer> category) {
+	public void setCategory(String category) {
 		this.category = category;
 	}
 

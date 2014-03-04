@@ -28,7 +28,7 @@ CREATE TABLE entity_item (
 );
 
 CREATE TABLE id_seq (
-  id BIGINT PRIMARY KEY NOT NULL
+  id BIGINT PRIMARY KEY NOT NULL,
   `group` VARCHAR(56) NOT NULL
 );
 

@@ -7,8 +7,8 @@
 	<div class="panel-body" style="padding-left: 30px;">
 		<form name="template" action="${pageContext.request.contextPath}/entity/create" method="post">
 			<input type="hidden" name="id" value="<c:out value="${item.id}" />"/>
-			<input type="hidden" name="pid" value="<c:out value="${item.pid}" />"/>
-			<input type="hidden" name="channelId" value="<c:out value="${item.channelId}" />"/>
+			<input type="hidden" name="pid" value="1" />
+			<%--<input type="hidden" name="pid" value="<c:out value="${item.pid}" />"/>--%>
 
 			<div class="row">
 				<div class="col-lg-6">
@@ -41,7 +41,22 @@
 						<select name="status" class="form-control">
 							<option value="1" <c:if test="${item.status == 1}">selected</c:if>>发布</option>
 							<option value="-1" <c:if test="${item.status == -1}">selected</c:if>>禁用</option>
-							<option value="0" <c:if test="${item.status == 0}">selected</c:if> title="不出现在列表中">保护</option>
+							<option value="0"
+									<c:if test="${item.status == 0}">selected</c:if> title="不出现在列表中">保护
+							</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="col-lg-2">
+					<div class="input-group">
+						<span class="input-group-addon">频道</span>
+						<select name="channelId" class="form-control">
+							<c:forEach items="${channelList}" var="channel">
+								<option value="${channel.id}"
+										<c:if test="${item!=null && channel.id == channel.id}">selected</c:if>><c:out
+										value="${channel.name}"/></option>
+							</c:forEach>
 						</select>
 					</div>
 				</div>
@@ -52,19 +67,22 @@
 				<div class="col-lg-4">
 					<div class="input-group">
 						<span class="input-group-addon">shortName</span>
-						<input type="text" name="shortName" value="<c:out value="${item.shortName}" />" class="form-control" placeholder="选填, 文件名"/>
+						<input type="text" name="shortName" value="<c:out value="${item.shortName}" />"
+								class="form-control" placeholder="选填, 文件名"/>
 					</div>
 				</div>
 				<div class="col-lg-4">
 					<div class="input-group">
 						<span class="input-group-addon">作者</span>
-						<input type="text" name="author" <c:out value="${item.author}" /> class="form-control" placeholder="选填, 张三"/>
+						<input type="text" name="author" <c:out value="${item.author}"/> class="form-control"
+								placeholder="选填, 张三"/>
 					</div>
 				</div>
 				<div class="col-lg-4">
 					<div class="input-group">
 						<span class="input-group-addon">责任编辑</span>
-						<input type="text" name="dutyEditor" <c:out value="${item.dutyEditor}" /> class="form-control" placeholder="选填, 李四"/>
+						<input type="text" name="dutyEditor" <c:out value="${item.dutyEditor}"/> class="form-control"
+								placeholder="选填, 李四"/>
 					</div>
 				</div>
 			</div>

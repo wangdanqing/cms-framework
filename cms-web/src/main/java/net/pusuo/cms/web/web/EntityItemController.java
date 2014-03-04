@@ -2,6 +2,7 @@ package net.pusuo.cms.web.web;
 
 import net.minidev.json.JSONObject;
 import net.pusuo.cms.core.bean.EntityItem;
+import net.pusuo.cms.web.service.ChannelService;
 import net.pusuo.cms.web.service.EntityItemService;
 import net.pusuo.cms.web.service.IDSeqService;
 import net.pusuo.cms.web.util.CommonViewUtil;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.sql.Timestamp;
 import java.util.List;
 
 import static net.pusuo.cms.web.util.CommonViewUtil.renderJsonView;
@@ -32,9 +34,11 @@ public class EntityItemController {
 	private final String group = "entity";
 
 	@RequestMapping("list")
-	public ModelAndView list() {
+	public ModelAndView list(@RequestParam(value = "pid", defaultValue = "-1", required = false) int pid,
+							 @RequestParam(value = "subjectId", defaultValue = "-1", required = false) int subjectId,
+							 @RequestParam(value = "channelId", defaultValue = "-1", required = false) int channelId) {
 		List<EntityItem> list = service.query(0);
-		return CommonViewUtil.renderListView("_list.jsp", list);
+		return CommonViewUtil.renderListView("entity/_list.jsp", list);
 	}
 
 	@RequestMapping(value = "create", method = RequestMethod.POST)
@@ -42,7 +46,7 @@ public class EntityItemController {
 		String title = request.getParameter("title");
 		String channelId = request.getParameter("channelId");
 		String pid = request.getParameter("pid");
-		if (StringUtils.isBlank(title) || StringUtils.isBlank(channelId) || StringUtils.isBlank(pid)) {
+		if (StringUtils.isBlank(title) || StringUtils.isBlank(channelId)) {//|| StringUtils.isBlank(pid)
 			ModelAndView view = new ModelAndView("index");
 			view.addObject("include_page", "entity/_list");
 			view.addObject("error", "新闻标题、频道Id、父栏目不能为空");
@@ -61,21 +65,34 @@ public class EntityItemController {
 
 		EntityItem item = new EntityItem();
 		item.setId(idSeqService.next(group));
-		item.setPid(Integer.parseInt(pid));
+		//todo
+		if (StringUtils.isNotBlank(pid)) {
+			item.setPid(Integer.parseInt(pid));
+		}
 		item.setTitle(title);
 		item.setChannelId(Integer.parseInt(channelId));
 		item.setContent(content);
 		item.setPriority(Integer.parseInt(priority));
 		item.setStatus(Integer.parseInt(status));
-		item.setMediaId(Integer.parseInt(mediaId));
+
+		if (StringUtils.isNotBlank(mediaId)) {
+			item.setMediaId(Integer.parseInt(mediaId));
+		}
 		item.setAuthor(author);
-		item.setEditor(Integer.parseInt(editor));
-		item.setDutyEditor(Integer.parseInt(dutyEditor));
+		item.setEditor(100);    // todo Integer.parseInt(editor)
+		if (StringUtils.isNotBlank(dutyEditor)) {
+			item.setDutyEditor(Integer.parseInt(dutyEditor));
+		}
 		item.setShortName(shortName);
+		Timestamp ct = new Timestamp(System.currentTimeMillis());
+		item.setCtime(ct);
+		item.setUptime(ct);
+
+		item.setCategory("");    //	todo
 
 		service.insert(item);
 
-		return renderObjView("entity/_item.jsp", item);
+		return list(-1, -1, -1);
 	}
 
 	@RequestMapping(value = "tocreate", method = RequestMethod.GET)

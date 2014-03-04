@@ -30,8 +30,8 @@ import java.util.List;
  */
 @RegisterMapper(EntityItemMapper.class)
 public interface EntityItemDao {
-	@SqlUpdate("insert into entity_item (pid, title,subhead, content, ctime, uptime, priority, status, channelId, mediaId, author,editor, dutyEditor, category, shortName,reurl) values " +
-			"(:pid, :title, :subhead, :content, :ctime, :uptime, :priority, :status, :channelId, :mediaId, :author, :editor, :dutyEditor, :category, :shortName, :reurl)")
+	@SqlUpdate("insert into entity_item (id, pid, title,subhead, content, ctime, uptime, priority, status, channelId, mediaId, author,editor, dutyEditor, category, shortName,reurl) values " +
+			"(:id, :pid, :title, :subhead, :content, :ctime, :uptime, :priority, :status, :channelId, :mediaId, :author, :editor, :dutyEditor, :category, :shortName, :reurl)")
 	public void insertBean(@BindBean EntityItem entity);
 
 	@SqlQuery("select * from entity_item where id = :id")
@@ -49,48 +49,4 @@ public interface EntityItemDao {
 			" channelId = :channelId, mediaId = :mediaId, author = :author, dutyEditor = :dutyEditor, content = :content, category = :category, " +
 			" shortName = :shortName, tags = :tags, keyword = :keyword, pictures = :pictures where id = :id")
 	int update(@BindBean EntityItem entityItem);
-}
-
-
-class EntityItemMapper implements ResultSetMapper<EntityItem> {
-
-	@Override
-	public EntityItem map(int index, ResultSet r, StatementContext ctx) throws SQLException {
-		EntityItem i = new EntityItem();
-		i.setId(r.getLong("id"));
-		i.setTitle(r.getString("title"));
-		i.setPid(r.getInt("pid"));
-		i.setSubhead(r.getString("subhead"));
-		Blob content = r.getBlob("content");
-		if (content != null) {
-			i.setContent(new String(content.getBytes(1, (int) content.length())));
-		}
-		i.setCtime(r.getTimestamp("ctime"));
-		i.setUptime(r.getTimestamp("uptime"));
-		i.setPriority(r.getInt("priority"));
-		i.setStatus(r.getInt("status"));
-		i.setChannelId(r.getInt("channelId"));
-		i.setMediaId(r.getInt("mediaId"));
-		i.setAuthor(r.getString("author"));
-		i.setEditor(r.getInt("editor"));
-		i.setDutyEditor(r.getInt("dutyEditor"));
-		i.setUrl(r.getString("url"));
-		String category = r.getString("category");
-		if (StringUtils.isNotBlank(category)) {
-			List<Integer> list = Lists.newArrayList();
-			Iterator<String> it = Splitter.on(Constant.CATEGORY_SEP).split(category).iterator();
-			while (it.hasNext()) {
-				list.add(Integer.parseInt(it.next()));
-			}
-			i.setCategory(list);
-		}
-		i.setReurl(r.getString("reurl"));
-		i.setShortName(r.getString("shortName"));
-		i.setKeyword(r.getString("keyword"));
-		i.setTags(r.getString("tags"));
-
-//		i.setPictures(); todo
-
-		return i;
-	}
 }
