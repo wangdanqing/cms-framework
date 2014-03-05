@@ -1,20 +1,20 @@
 package net.pusuo.cms.core.bean;
 
-import java.io.Serializable;
+import net.minidev.json.JSONObject;
 
-public class Media implements Serializable {
+public class Media extends Item implements IHelper {
 
-	private static final long serialVersionUID = -3714437623945153430L;
-	private long id;
+	private static final long serialVersionUID = -5258789177543119069L;
+	private int id;
 	private String desc;
 	private String siteurl;
-	private String logurl;
+	private String logourl;
 
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -34,11 +34,22 @@ public class Media implements Serializable {
 		this.siteurl = siteurl;
 	}
 
-	public String getLogurl() {
-		return logurl;
+	public String getLogourl() {
+		return logourl;
 	}
 
-	public void setLogurl(String logurl) {
-		this.logurl = logurl;
+	public void setLogourl(String logourl) {
+		this.logourl = logourl;
+	}
+
+	@Override
+	public JSONObject toJson() {
+		JSONObject json = new JSONObject();
+		json.put("id", id);
+		json.put("desc", desc);
+		json.put("siteurl", siteurl);
+		json.put("logourl", logourl);
+
+		return json;
 	}
 }

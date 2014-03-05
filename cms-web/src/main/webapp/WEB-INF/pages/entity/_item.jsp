@@ -60,6 +60,19 @@
 						</select>
 					</div>
 				</div>
+
+				<div class="col-lg-3">
+					<div class="input-group">
+						<span class="input-group-addon">媒体</span>
+						<select name="mediaId" class="form-control">
+							<c:forEach items="${mediaList}" var="media">
+								<option value="${media.id}"
+										<c:if test="${media!=null && media.id == media.id}">selected</c:if>><c:out
+										value="${media.desc}"/></option>
+							</c:forEach>
+						</select>
+					</div>
+				</div>
 			</div>
 			<br/>
 

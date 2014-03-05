@@ -3,6 +3,13 @@ CREATE DATABASE IF NOT EXISTS cms_framework
 
 USE cms_framework;
 
+CREATE TABLE media (
+  id      INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  `desc`    VARCHAR(56)                    NOT NULL,
+  siteurl VARCHAR(256),
+  logourl VARCHAR(256)
+);
+
 CREATE TABLE entity_item (
   id         BIGINT PRIMARY KEY  NOT NULL,
   pid        INT                 NOT NULL,
@@ -28,8 +35,8 @@ CREATE TABLE entity_item (
 );
 
 CREATE TABLE id_seq (
-  id BIGINT PRIMARY KEY NOT NULL,
-  `group` VARCHAR(56) NOT NULL
+  id      BIGINT PRIMARY KEY NOT NULL,
+  `group` VARCHAR(56)        NOT NULL
 );
 
 CREATE TABLE cms_framework.channel

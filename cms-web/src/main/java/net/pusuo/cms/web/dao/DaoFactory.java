@@ -28,27 +28,29 @@ public class DaoFactory {
 		bf = new XmlBeanFactory(resource);
 	}
 
+	public static DBI getBaseDBI() {
+		DataSource ds = (DataSource) bf.getBean("datasource");
+		return new DBI(ds);
+	}
+
+
 	public static DBI getChannelDBI() {
 		DataSource ds = (DataSource) bf.getBean("datasource");
-
 		return new DBI(ds);
 	}
 
 	public static DBI getSubjectDBI() {
 		DataSource ds = (DataSource) bf.getBean("datasource");
-
 		return new DBI(ds);
 	}
 
 	public static DBI getTemplateDBI() {
 		DataSource ds = (DataSource) bf.getBean("datasource");
-
 		return new DBI(ds);
 	}
 
 	public static DBI getEntityItemDBI() {
 		DataSource ds = (DataSource) bf.getBean("datasource");
-
 		return new DBI(ds);
 	}
 }

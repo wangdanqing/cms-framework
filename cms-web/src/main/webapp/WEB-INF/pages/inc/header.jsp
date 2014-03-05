@@ -18,7 +18,7 @@
 						<li><a href="#">全局碎片</a></li>
 						<li><a href="#">频道碎片</a></li>
 						<li class="divider"></li>
-						<li><a href="#">媒体管理</a></li>
+						<li><a href="${pageContext.request.contextPath}/media/list">媒体管理</a></li>
 					</ul>
 				</li>
 				<li><a href="${pageContext.request.contextPath}/entity/tocreate">新建</a></li>

@@ -2,9 +2,11 @@ package net.pusuo.cms.web.web;
 
 import net.minidev.json.JSONObject;
 import net.pusuo.cms.core.bean.EntityItem;
+import net.pusuo.cms.core.bean.Media;
 import net.pusuo.cms.web.service.ChannelService;
 import net.pusuo.cms.web.service.EntityItemService;
 import net.pusuo.cms.web.service.IDSeqService;
+import net.pusuo.cms.web.service.MediaService;
 import net.pusuo.cms.web.util.CommonViewUtil;
 import net.pusuo.cms.web.util.FormRequestUtil;
 import org.apache.commons.lang.StringUtils;
@@ -19,7 +21,6 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import static net.pusuo.cms.web.util.CommonViewUtil.renderJsonView;
-import static net.pusuo.cms.web.util.CommonViewUtil.renderObjView;
 
 /**
  * @author 玄畅
@@ -30,6 +31,8 @@ import static net.pusuo.cms.web.util.CommonViewUtil.renderObjView;
 @RequestMapping("entity")
 public class EntityItemController {
 	private final EntityItemService service = new EntityItemService();
+	private final MediaService mediaService = new MediaService();
+	private final ChannelService channelService = new ChannelService();
 	private final IDSeqService idSeqService = new IDSeqService();
 	private final String group = "entity";
 
@@ -111,7 +114,13 @@ public class EntityItemController {
 			item.setMediaId(current.getMediaId());
 		}
 
-		return renderObjView("entity/_item.jsp", item);
+		List<Media> mediaList = mediaService.query(0);
+		ModelAndView view = new ModelAndView("index");
+		view.addObject("include_page", "entity/_item.jsp");
+		view.addObject("item", item);
+		view.addObject("mediaList", mediaList);
+		view.addObject("channelList", channelService.query(0));
+		return view;
 	}
 
 	@RequestMapping(value = "delete", method = RequestMethod.POST)
