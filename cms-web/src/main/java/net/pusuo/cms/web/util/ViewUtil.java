@@ -1,5 +1,6 @@
 package net.pusuo.cms.web.util;
 
+import net.pusuo.cms.core.bean.Constant;
 import net.pusuo.cms.web.service.ChannelService;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -10,7 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @author 玄畅
  * @date: 14-3-1 下午8:09
  */
-public class CommonViewUtil {
+public class ViewUtil {
 	private final static ChannelService channelService = new ChannelService();
 
 	public static void fillChannel(ModelAndView view) {

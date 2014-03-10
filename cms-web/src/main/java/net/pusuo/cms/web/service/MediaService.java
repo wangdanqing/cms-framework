@@ -1,8 +1,8 @@
 package net.pusuo.cms.web.service;
 
 import net.pusuo.cms.core.bean.Media;
-import net.pusuo.cms.web.dao.MediaDao;
 import net.pusuo.cms.web.dao.DaoFactory;
+import net.pusuo.cms.web.dao.MediaDao;
 import org.skife.jdbi.v2.DBI;
 import org.skife.jdbi.v2.Handle;
 
@@ -14,18 +14,18 @@ import java.util.List;
  * @author 玄畅
  * @date 14-3-5 下午10:24
  */
-public class MediaService {
+public class MediaService implements IService<Media> {
 	private final DBI dbi = DaoFactory.getBaseDBI();
 
-	public void insert(Media media) {
+	public boolean insert(Media media) {
 		if (media == null) {
-			return;
+			return false;
 		}
 
 		Handle handle = dbi.open();
 		try {
 			MediaDao db = handle.attach(MediaDao.class);
-			db.insertBean(media);
+			return db.insertBean(media) > 0;
 		} finally {
 			handle.close();
 		}
@@ -50,13 +50,13 @@ public class MediaService {
 		return dao.getById(id);
 	}
 
-	public void delete(int id) {
+	public boolean delete(int id) {
 		if (id < 0) {
-			return;
+			return false;
 		}
 
 		MediaDao dao = dbi.onDemand(MediaDao.class);
-		dao.delete(id);
+		return dao.delete(id) > 0;
 	}
 
 

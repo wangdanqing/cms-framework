@@ -2,15 +2,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="panel panel-default">
 	<div class="panel-heading">
-		<h3 class="panel-title">新建内容实体</h3>
+		<div class="row">
+			<div class="col-md-8">新建新闻</div>
+			<div class="col-md-4"><a href="${pageContext.request.contextPath}/entity/list">返回列表</a></div>
+		</div>
 	</div>
 	<div class="panel-body" style="padding-left: 30px;">
-		<form name="template" action="${pageContext.request.contextPath}/entity/create" method="post">
+		<form name="template" action="${pageContext.request.contextPath}/entity/create" method="post"
+				class="form-inline">
 			<input type="hidden" name="id" value="<c:out value="${item.id}" />"/>
-			<input type="hidden" name="pid" value="1" />
-			<%--<input type="hidden" name="pid" value="<c:out value="${item.pid}" />"/>--%>
 
-			<div class="row">
+			<div class="row-fluid">
 				<div class="col-lg-6">
 					<div class="input-group">
 						<span class="input-group-addon"><strong>标题</strong></span>
@@ -21,62 +23,62 @@
 			</div>
 			<br/>
 
-			<div class="row">
-				<div class="col-lg-2">
-					<div class="input-group">
-						<span class="input-group-addon">权重</span>
-						<select name="priority" class="form-control">
-							<option value="60" <c:if test="${item.priority == 60}">selected</c:if>>普通</option>
-							<option value="100" <c:if test="${item.priority == 100}">selected</c:if>>最大</option>
-							<option value="80" <c:if test="${item.priority == 80}">selected</c:if>>高</option>
-							<option value="40" <c:if test="${item.priority == 40}">selected</c:if>>较小</option>
-							<option value="0" <c:if test="${item.priority == 0}">selected</c:if>>最小</option>
-						</select>
-					</div>
+			<div class="row-fluid">
+				<div class="form-group">
+					<label for="pid">父栏目</label>
+					<select id="pid" name="pid" class="form-control input-sm">
+						<%--<c:out value="${item.pid}" />--%>
+						<c:forEach items="${pidList}" var="sub">
+							<option value="0" <c:if test="${sub.id == item.pid}">selected</c:if>><c:out
+									value="${sub.name}"/></option>
+						</c:forEach>
+					</select>
+				</div>
+				<div class="form-group">
+					<label for="priority">权重</label>
+					<select id="priority" name="priority" class="form-control input-sm">
+						<option value="60" <c:if test="${item.priority == 60}">selected</c:if>>普通</option>
+						<option value="100" <c:if test="${item.priority == 100}">selected</c:if>>最大</option>
+						<option value="80" <c:if test="${item.priority == 80}">selected</c:if>>高</option>
+						<option value="40" <c:if test="${item.priority == 40}">selected</c:if>>较小</option>
+						<option value="0" <c:if test="${item.priority == 0}">selected</c:if>>最小</option>
+					</select>
 				</div>
 
-				<div class="col-lg-2">
-					<div class="input-group">
-						<span class="input-group-addon">状态</span>
-						<select name="status" class="form-control">
-							<option value="1" <c:if test="${item.status == 1}">selected</c:if>>发布</option>
-							<option value="-1" <c:if test="${item.status == -1}">selected</c:if>>禁用</option>
-							<option value="0"
-									<c:if test="${item.status == 0}">selected</c:if> title="不出现在列表中">保护
-							</option>
-						</select>
-					</div>
+				<div class="form-group">
+					<label for="status">状态</label>
+					<select id="status" name="status" class="form-control input-sm">
+						<option value="1" <c:if test="${item.status == 1}">selected</c:if>>正常</option>
+						<option value="-1" <c:if test="${item.status == -1}">selected</c:if>>禁用</option>
+						<option value="0" <c:if test="${item.status == 0}">selected</c:if>>保护</option>
+					</select>
 				</div>
 
-				<div class="col-lg-2">
-					<div class="input-group">
-						<span class="input-group-addon">频道</span>
-						<select name="channelId" class="form-control">
-							<c:forEach items="${channelList}" var="channel">
-								<option value="${channel.id}"
-										<c:if test="${item!=null && channel.id == channel.id}">selected</c:if>><c:out
-										value="${channel.name}"/></option>
-							</c:forEach>
-						</select>
-					</div>
+				<div class="form-group">
+					<label for="channelId">频道</label>
+					<select id="channelId" name="channelId" class="form-control input-sm">
+						<c:forEach items="${channelList}" var="channel">
+							<option value="${channel.id}"
+									<c:if test="${item!=null && channel.id == channel.id}">selected</c:if>><c:out
+									value="${channel.name}"/></option>
+						</c:forEach>
+					</select>
 				</div>
 
-				<div class="col-lg-3">
-					<div class="input-group">
-						<span class="input-group-addon">媒体</span>
-						<select name="mediaId" class="form-control">
-							<c:forEach items="${mediaList}" var="media">
-								<option value="${media.id}"
-										<c:if test="${media!=null && media.id == media.id}">selected</c:if>><c:out
-										value="${media.desc}"/></option>
-							</c:forEach>
-						</select>
-					</div>
+				<div class="form-group">
+					<label for="mediaId">媒体</label>
+					<select id="mediaId" name="mediaId" class="form-control input-sm">
+						<c:forEach items="${mediaList}" var="media">
+							<option value="${media.id}"
+									<c:if test="${media!=null && media.id == media.id}">selected</c:if>><c:out
+									value="${media.desc}"/></option>
+						</c:forEach>
+					</select>
 				</div>
 			</div>
 			<br/>
 
-			<div class="row">
+			<div class="row-fluid">
 				<div class="col-lg-4">
 					<div class="input-group">
 						<span class="input-group-addon">shortName</span>
@@ -101,7 +103,7 @@
 			</div>
 			<br/>
 
-			<div class="row">
+			<div class="row-fluid">
 				<div class="col-lg-12">
 					<div class="input-group">
 						<span class="input-group-addon">内容</span>
@@ -115,3 +117,8 @@
 		</form>
 	</div>
 </div>
+<style>
+	.form-group {
+		margin: 0 15px 15px 15px;
+	}
+</style>

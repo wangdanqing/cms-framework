@@ -2,38 +2,31 @@ package net.pusuo.cms.core.bean;
 
 import net.minidev.json.JSONObject;
 
-public class Subject implements IHelper {
+import java.sql.Timestamp;
+
+public class Subject extends Item implements IHelper {
+	private static final long serialVersionUID = -676062571458696121L;
+
+	public static final int TYPE_HOME_PAGE = 0;    //	首页
+	public static final int TYPE_SUBJECT = 1;      //	栏目
+	public static final int TYPE_TOPIC = 2;        //	专题
 
 	private int id;
-	private int pid;
-	private String fullpath;//父对象的全路径，以";"分割
-	private String name;    //发布英文名称
+	private int pid;        //父栏目id
+	private String category;//父对象的全路径，以";"分割
+	private String shortName;//发布英文名称
+	private String name;    //栏目名字
+	private String tags;    //关键词
 	private String desc;    //描述
-	private long ctime;      //create time
+	private Timestamp ctime;     //create time
+	private Timestamp uptime;    //update time
 	private int priority = 60;
 	private int status = 0;
 	private int channelId;
-	private int parentId;   //父栏目id
 	private int editorId;   //编辑
-	private int templateId;//当前模板Id
+	private int templateId; //当前模板Id
 	private String bakTemplateList;    //备用模板id列表, 以";"分割
-	private int type = 1;   //类型，0:首页      1:栏目   2:专题
-
-	@Override
-	public JSONObject toJson() {
-		JSONObject json = new JSONObject();
-		json.put("id", id);
-		json.put("pid", pid);
-		json.put("name", name);
-		json.put("desc", desc);
-		json.put("ctime", ctime);
-		json.put("status", status);
-		json.put("editerId", editorId);
-		json.put("fullpath", fullpath);
-		json.put("templateId", templateId);
-
-		return json;
-	}
+	private int type;
 
 	public int getId() {
 		return id;
@@ -51,20 +44,20 @@ public class Subject implements IHelper {
 		this.pid = pid;
 	}
 
-	public String getFullpath() {
-		return fullpath;
+	public String getCategory() {
+		return category;
 	}
 
-	public void setFullpath(String fullpath) {
-		this.fullpath = fullpath;
+	public void setCategory(String category) {
+		this.category = category;
 	}
 
-	public String getName() {
-		return name;
+	public String getShortName() {
+		return shortName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setShortName(String shortName) {
+		this.shortName = shortName;
 	}
 
 	public String getDesc() {
@@ -75,13 +68,20 @@ public class Subject implements IHelper {
 		this.desc = desc;
 	}
 
-
-	public long getCtime() {
+	public Timestamp getCtime() {
 		return ctime;
 	}
 
-	public void setCtime(long ctime) {
+	public void setCtime(Timestamp ctime) {
 		this.ctime = ctime;
+	}
+
+	public Timestamp getUptime() {
+		return uptime;
+	}
+
+	public void setUptime(Timestamp uptime) {
+		this.uptime = uptime;
 	}
 
 	public int getPriority() {
@@ -140,11 +140,42 @@ public class Subject implements IHelper {
 		this.type = type;
 	}
 
-	public int getParentId() {
-		return parentId;
+	public String getName() {
+		return name;
 	}
 
-	public void setParentId(int parentId) {
-		this.parentId = parentId;
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getTags() {
+		return tags;
+	}
+
+	public void setTags(String tags) {
+		this.tags = tags;
+	}
+
+	@Override
+	public JSONObject toJson() {
+		JSONObject json = new JSONObject();
+		json.put("id", id);
+		json.put("pid", pid);
+		json.put("name", name);
+		json.put("shortName", shortName);
+		json.put("type", type);
+		json.put("tags", tags);
+		json.put("ctime", ctime);
+		json.put("uptime", uptime);
+		json.put("priority", priority);
+		json.put("channelId", channelId);
+		json.put("desc", desc);
+		json.put("status", status);
+		json.put("editerId", editorId);
+		json.put("category", category);
+		json.put("templateId", templateId);
+		json.put("bakTemplateList", bakTemplateList);
+
+		return json;
 	}
 }

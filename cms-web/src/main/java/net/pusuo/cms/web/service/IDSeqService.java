@@ -49,6 +49,10 @@ public class IDSeqService {
 			IDSeq seq = dao.get(group);
 			if (seq == null) {
 				seq = new IDSeq(group, fix_len);
+				dao.insert(seq);
+			} else {
+				seq.setId(seq.getId() + 50);
+				dao.update(seq);
 			}
 
 			String key_gateway = String.format(fmt_gateway, group);

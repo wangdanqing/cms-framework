@@ -5,8 +5,8 @@ import net.minidev.json.JSONObject;
 import net.pusuo.cms.core.bean.Item;
 import net.pusuo.cms.core.bean.Template;
 import net.pusuo.cms.web.service.TemplateService;
-import net.pusuo.cms.web.util.CommonViewUtil;
-import net.pusuo.cms.web.util.Constant;
+import net.pusuo.cms.web.util.ViewUtil;
+import net.pusuo.cms.core.bean.Constant;
 import net.pusuo.cms.web.util.FormRequestUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.sql.Timestamp;
 import java.util.List;
 
-import static net.pusuo.cms.web.util.CommonViewUtil.*;
+import static net.pusuo.cms.web.util.ViewUtil.*;
 
 /**
  * 模版的增删改查
@@ -45,7 +45,7 @@ public class TemplateController {
 			array.add(tmp.toJson());
 		}
 
-		return CommonViewUtil.renderListView("_template.jsp", array.toJSONString());
+		return ViewUtil.renderListView("_template.jsp", array.toJSONString());
 	}
 
 	@RequestMapping(value = "create", method = RequestMethod.POST)

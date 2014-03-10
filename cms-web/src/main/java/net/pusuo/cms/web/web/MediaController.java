@@ -4,7 +4,7 @@ import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 import net.pusuo.cms.core.bean.Media;
 import net.pusuo.cms.web.service.MediaService;
-import net.pusuo.cms.web.util.CommonViewUtil;
+import net.pusuo.cms.web.util.ViewUtil;
 import net.pusuo.cms.web.util.FormRequestUtil;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.http.HttpStatus;
@@ -37,7 +37,7 @@ public class MediaController {
 			array.add(ch.toJson());
 		}
 
-		return CommonViewUtil.renderListView("_media.jsp", array.toJSONString());
+		return ViewUtil.renderListView("_media.jsp", array.toJSONString());
 	}
 
 	@ResponseBody

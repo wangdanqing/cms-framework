@@ -19,15 +19,15 @@ public class ChannelService implements IService<Channel> {
 
 	private final DBI dbi = DaoFactory.getChannelDBI();
 
-	public void insert(Channel channel) {
+	public boolean insert(Channel channel) {
 		if (channel == null) {
-			return;
+			return false;
 		}
 
 		Handle handle = dbi.open();
 		try {
 			ChannelDao db = handle.attach(ChannelDao.class);
-			db.insertBean(channel);
+			return db.insertBean(channel) > 0;
 		} finally {
 			handle.close();
 		}
@@ -52,13 +52,13 @@ public class ChannelService implements IService<Channel> {
 		return dao.getById(id);
 	}
 
-	public void delete(int id) {
+	public boolean delete(int id) {
 		if (id < 0) {
-			return;
+			return false;
 		}
 
 		ChannelDao dao = dbi.onDemand(ChannelDao.class);
-		dao.delete(id);
+		return dao.delete(id) > 0;
 	}
 
 
@@ -78,28 +78,4 @@ public class ChannelService implements IService<Channel> {
 
 		return ret > 0;
 	}
-
-	public static void main(String... args) {
-		final DBI dbi = DaoFactory.getChannelDBI();
-		Handle handle = dbi.open();
-		try {
-			ChannelDao db = handle.attach(ChannelDao.class);
-			Channel c = new Channel();
-			c.setDir("www");
-			c.setName("abc");
-			db.insertBean(c);
-
-			Channel cc = db.findByName("www");
-			System.out.println(cc.getId() + "||" + cc.getDir() + "||" + cc.getName());
-
-			List<Channel> list = db.query(0);
-			for (Channel channel : list) {
-				System.out.println(channel.getId() + "||" + channel.getDir() + "||" + channel.getName());
-			}
-
-		} finally {
-			handle.close();
-		}
-	}
-
 }

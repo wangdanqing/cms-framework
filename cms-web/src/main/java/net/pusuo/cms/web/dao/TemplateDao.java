@@ -21,21 +21,21 @@ public interface TemplateDao {
 
 	@SqlUpdate("insert into template (name, type, content, createTime, uptime, status, creator) values " +
 			"(:name, :type, :content, :createTime, :uptime, :status, :creator)")
-	public void insertBean(@BindBean Template template);
+	int insertBean(@BindBean Template template);
 
 	@SqlQuery("select * from template where name = :name")
 	@MapResultAsBean
-	public Template getByName(@Bind("name") String name);
+	Template getByName(@Bind("name") String name);
 
 	@SqlQuery("select * from template where id = :id")
 	@MapResultAsBean
-	public Template getById(@Bind("id") int id);
+	Template getById(@Bind("id") int id);
 
 	@SqlQuery("select * from template where id > :id order by id desc")
-	public List<Template> query(@Bind("id") int id);
+	List<Template> query(@Bind("id") int id);
 
 	@SqlUpdate("delete from template where id = :id")
-	public void delete(@Bind("id") long id);
+	int delete(@Bind("id") long id);
 
 	@SqlUpdate("update template set name = :name, type = :type, uptime = :uptime, status = :status," +
 			" content = :content where id = :id")

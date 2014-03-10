@@ -18,10 +18,29 @@ public class SubjectService implements IService<Subject> {
 
 	private final DBI dbi = DaoFactory.getSubjectDBI();
 
-	@Override
-	public void insert(Subject subject) {
+	/**
+	 * 根据栏目Id，获取所有的子栏目
+	 *
+	 * @param id 栏目ID
+	 *
+	 * @return list subject
+	 */
+	public List<Subject> getSubListById(int id) {
 		SubjectDao dao = dbi.onDemand(SubjectDao.class);
-		dao.insertBean(subject);
+		List<Subject> list;
+		if (id > 0) {
+			list = dao.queryByPid(id);
+		} else {
+			list = dao.getAll(id);
+		}
+
+		return list;
+	}
+
+	@Override
+	public boolean insert(Subject subject) {
+		SubjectDao dao = dbi.onDemand(SubjectDao.class);
+		return dao.insertBean(subject) > 0;
 	}
 
 	@Override
@@ -31,20 +50,23 @@ public class SubjectService implements IService<Subject> {
 	}
 
 	@Override
-	public void delete(int id) {
+	public boolean delete(int id) {
 		SubjectDao dao = dbi.onDemand(SubjectDao.class);
-		dao.delete(id);
+		return dao.delete(id) > 0;
 	}
 
 	@Override
-	public List<Subject> query(int key) {
+	public List<Subject> query(int channelId) {
 		SubjectDao dao = dbi.onDemand(SubjectDao.class);
-		return dao.queryByChannel(key);
-	}
 
-	public List<Subject> getHomePageList() {
-		SubjectDao dao = dbi.onDemand(SubjectDao.class);
-		return dao.queryChannelList();
+		List<Subject> list;
+		if (channelId > -1) {
+			list = dao.queryByChannelId(channelId);
+		} else {
+			list = dao.getAll(channelId);
+		}
+
+		return list;
 	}
 
 	@Override

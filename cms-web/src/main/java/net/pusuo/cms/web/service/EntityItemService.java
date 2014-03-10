@@ -15,15 +15,15 @@ import java.util.List;
 public class EntityItemService {
 	private final DBI dbi = DaoFactory.getEntityItemDBI();
 
-	public void insert(EntityItem entity) {
+	public boolean insert(EntityItem entity) {
 		if (entity == null) {
-			return;
+			return false;
 		}
 
 		Handle handle = dbi.open();
 		try {
 			EntityItemDao db = handle.attach(EntityItemDao.class);
-			db.insertBean(entity);
+			return db.insertBean(entity) > 0;
 		} finally {
 			handle.close();
 		}
@@ -38,13 +38,13 @@ public class EntityItemService {
 		return dao.getById(id);
 	}
 
-	public void delete(long id) {
+	public boolean delete(long id) {
 		if (id < 0) {
-			return;
+			return false;
 		}
 
 		EntityItemDao dao = dbi.onDemand(EntityItemDao.class);
-		dao.delete(id);
+		return dao.delete(id) > 0;
 	}
 
 	public List<EntityItem> query(long id) {

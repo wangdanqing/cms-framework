@@ -14,19 +14,19 @@ import java.util.List;
  * Date: 14-2-24
  * Time: 下午10:38
  */
-public class TemplateService {
+public class TemplateService implements IService<Template> {
 
 	private final DBI dbi = DaoFactory.getTemplateDBI();
 
-	public void insert(Template template) {
+	public boolean insert(Template template) {
 		if (template == null) {
-			return;
+			return false;
 		}
 
 		Handle handle = dbi.open();
 		try {
 			TemplateDao db = handle.attach(TemplateDao.class);
-			db.insertBean(template);
+			return db.insertBean(template) > 0;
 		} finally {
 			handle.close();
 		}
@@ -50,13 +50,13 @@ public class TemplateService {
 		return dao.getByName(name);
 	}
 
-	public void delete(int id) {
+	public boolean delete(int id) {
 		if (id < 0) {
-			return;
+			return false;
 		}
 
 		TemplateDao dao = dbi.onDemand(TemplateDao.class);
-		dao.delete(id);
+		return dao.delete(id) > 0;
 	}
 
 

@@ -4,8 +4,8 @@ import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 import net.pusuo.cms.core.bean.Channel;
 import net.pusuo.cms.web.service.ChannelService;
-import net.pusuo.cms.web.util.CommonViewUtil;
-import net.pusuo.cms.web.util.Constant;
+import net.pusuo.cms.web.util.ViewUtil;
+import net.pusuo.cms.core.bean.Constant;
 import net.pusuo.cms.web.util.FormRequestUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,7 +35,7 @@ public class ChannelController {
 			array.add(ch.toJson());
 		}
 
-		return CommonViewUtil.renderListView("_channel.jsp", array.toJSONString());
+		return ViewUtil.renderListView("_channel.jsp", array.toJSONString());
 	}
 
 	@RequestMapping(value = "create", method = RequestMethod.POST)

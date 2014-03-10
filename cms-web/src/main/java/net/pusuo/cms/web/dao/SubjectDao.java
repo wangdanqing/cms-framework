@@ -20,30 +20,25 @@ import java.util.List;
 @RegisterMapper(SubjectMapper.class)
 public interface SubjectDao {
 
-	@SqlUpdate("insert into subject (pid, fullpath, name, `desc`, ctime, priority, status, channelId, editorId, templateId, type) values (:pid, :fullpath, :name, :`desc`, :ctime, :priority, :status, :channelId, :editorId, :templateId, :type)")
-	public void insertBean(@BindBean Subject subject);
+	@SqlUpdate("insert into subject (pid, shortName, tags, category, name, `desc`, ctime, uptime, priority, status, channelId, editorId, templateId, type) values (:pid, :shortName, :tags, :category, :name, :`desc`, :ctime, :uptime, :priority, :status, :channelId, :editorId, :templateId, :type)")
+	int insertBean(@BindBean Subject subject);
 
 	@SqlQuery("select * from subject where id = :id")
 	@MapResultAsBean
-	public Subject findById(@Bind("id") int id);
+	Subject findById(@Bind("id") int id);
 
+	@SqlQuery("select * from subject where id >= :id order by id desc")
+	List<Subject> getAll(@Bind("id") int id);
 
-	@SqlQuery("select * from subject where type = 0 and status = 0 order by id asc")
-	public List<Subject> queryChannelList();
+	@SqlQuery("select * from subject where channelId = :channelId order by id desc")
+	List<Subject> queryByChannelId(@Bind("channelId") int channelId);
 
-	@SqlQuery("select * from subject where channelId = :channelId order by id asc")
-	public List<Subject> queryByChannel(@Bind("channelId") int channelId);
+	@SqlQuery("select * from subject where pid = :pid order by id desc")
+	List<Subject> queryByPid(@Bind("pid") int pid);
 
-	@SqlQuery("select * from subject where channelId = :channelId order by id asc")
-	public List<Subject> queryChildSubject(@Bind("id") int id);
+	@SqlQuery("delete from subject where id = :id")
+	int delete(@Bind("id") int id);
 
-	@SqlQuery("select * from subject where channelId = :channelId order by id asc")
-	public List<Subject> queryParentSubject(@Bind("id") int id);
-
-
-	@SqlQuery("delete subject where id = :id")
-	public int delete(@Bind("id") int id);
-
-	@SqlUpdate("update subject set name = :name, `desc` = :desc, priority = :priority, status = :status, channelId = :channelId, templateId = :templateId, bakTemplateList = :bakTemplateList  where id = :id")
+	@SqlUpdate("update subject set tags = :tags, category = :category, uptime = :uptime, name = :name, `desc` = :desc, priority = :priority, status = :status, channelId = :channelId, templateId = :templateId, bakTemplateList = :bakTemplateList  where id = :id")
 	int update(@BindBean Subject subject);
 }

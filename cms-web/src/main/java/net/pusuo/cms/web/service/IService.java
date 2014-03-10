@@ -1,7 +1,5 @@
 package net.pusuo.cms.web.service;
 
-import net.pusuo.cms.core.bean.Channel;
-
 import java.util.List;
 
 /**
@@ -13,28 +11,28 @@ import java.util.List;
  */
 public interface IService<T> {
 
-	void insert(T channel);
+	boolean insert(T channel);
 
 	/**
 	 * get by primary id
 	 *
-	 * @param id
+	 * @param id id
 	 *
-	 * @return
+	 * @return T
 	 */
 	T getById(int id);
 
 	/**
-	 * delete by Id
+	 * delete by primary Id
 	 *
-	 * @param id
+	 * @param id id
 	 */
-	void delete(int id);
+	boolean delete(int id);
 
 	/**
 	 * query by {@literal key}
 	 *
-	 * @param key
+	 * @param key key
 	 *
 	 * @return T list
 	 */

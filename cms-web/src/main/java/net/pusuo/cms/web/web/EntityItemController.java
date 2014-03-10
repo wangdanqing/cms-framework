@@ -1,14 +1,13 @@
 package net.pusuo.cms.web.web;
 
+import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 import net.pusuo.cms.core.bean.EntityItem;
 import net.pusuo.cms.core.bean.Media;
-import net.pusuo.cms.web.service.ChannelService;
-import net.pusuo.cms.web.service.EntityItemService;
-import net.pusuo.cms.web.service.IDSeqService;
-import net.pusuo.cms.web.service.MediaService;
-import net.pusuo.cms.web.util.CommonViewUtil;
+import net.pusuo.cms.core.bean.Subject;
+import net.pusuo.cms.web.service.*;
 import net.pusuo.cms.web.util.FormRequestUtil;
+import net.pusuo.cms.web.util.ViewUtil;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.sql.Timestamp;
 import java.util.List;
 
-import static net.pusuo.cms.web.util.CommonViewUtil.renderJsonView;
+import static net.pusuo.cms.web.util.ViewUtil.renderJsonView;
 
 /**
  * @author 玄畅
@@ -34,6 +33,7 @@ public class EntityItemController {
 	private final MediaService mediaService = new MediaService();
 	private final ChannelService channelService = new ChannelService();
 	private final IDSeqService idSeqService = new IDSeqService();
+	private final SubjectService subjectService = new SubjectService();
 	private final String group = "entity";
 
 	@RequestMapping("list")
@@ -41,7 +41,11 @@ public class EntityItemController {
 							 @RequestParam(value = "subjectId", defaultValue = "-1", required = false) int subjectId,
 							 @RequestParam(value = "channelId", defaultValue = "-1", required = false) int channelId) {
 		List<EntityItem> list = service.query(0);
-		return CommonViewUtil.renderListView("entity/_list.jsp", list);
+		JSONArray array = new JSONArray();
+		for (EntityItem item : list) {
+			array.add(item.toJson());
+		}
+		return ViewUtil.renderListView("entity/_list.jsp", array.toJSONString());
 	}
 
 	@RequestMapping(value = "create", method = RequestMethod.POST)
@@ -98,11 +102,12 @@ public class EntityItemController {
 		return list(-1, -1, -1);
 	}
 
-	@RequestMapping(value = "tocreate", method = RequestMethod.GET)
-	public ModelAndView tocreate(@RequestParam(value = "id", required = false) Long id) {
+	@RequestMapping(value = "toitem", method = RequestMethod.GET)
+	public ModelAndView toitem(@RequestParam(value = "id", required = false) Long id,
+							   @RequestParam(value = "op", required = true) String op) {
 		EntityItem item = null;
-		if (id != null && id > 0) {
-
+		op = op == null ? "create" : op;
+		if (id != null && id > 0 && op.equals("create")) {
 			//	新生成一篇文章，默认带上一些共同属性
 			EntityItem current = service.getById(id);
 			item = new EntityItem();
@@ -114,10 +119,16 @@ public class EntityItemController {
 			item.setMediaId(current.getMediaId());
 		}
 
+		if (id != null && id > 0 && op.equals("update")) {
+			item = service.getById(id);
+		}
+
+		List<Subject> pidList = subjectService.getSubListById(-1);
 		List<Media> mediaList = mediaService.query(0);
 		ModelAndView view = new ModelAndView("index");
 		view.addObject("include_page", "entity/_item.jsp");
 		view.addObject("item", item);
+		view.addObject("pidList", pidList);
 		view.addObject("mediaList", mediaList);
 		view.addObject("channelList", channelService.query(0));
 		return view;
@@ -131,7 +142,7 @@ public class EntityItemController {
 			return null;
 		}
 
-		service.delete(Integer.parseInt(_id.toString()));
+		boolean ret = service.delete(Integer.parseInt(_id.toString()));
 
 		return renderJsonView("");
 	}

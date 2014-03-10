@@ -1,9 +1,8 @@
 package net.pusuo.cms.web.web;
 
-import net.pusuo.cms.web.util.CommonViewUtil;
+import net.pusuo.cms.web.util.ViewUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -17,6 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 public class MainController {
 	@RequestMapping("/")
 	public ModelAndView defaultPage() {
-		return CommonViewUtil.renderListView("_welcome.jsp", null);
+		return ViewUtil.renderListView("_welcome.jsp", null);
 	}
 }

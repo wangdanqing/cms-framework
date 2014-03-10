@@ -18,7 +18,6 @@
 			<input class="btn-primary" type="submit" value="add">
 		</form>
 
-
 		<table class="table">
 			<thead>
 			<tr>

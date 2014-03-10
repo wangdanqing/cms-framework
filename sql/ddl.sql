@@ -5,7 +5,7 @@ USE cms_framework;
 
 CREATE TABLE media (
   id      INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-  `desc`    VARCHAR(56)                    NOT NULL,
+  `desc`  VARCHAR(56)                    NOT NULL,
   siteurl VARCHAR(256),
   logourl VARCHAR(256)
 );
@@ -51,13 +51,16 @@ CREATE TABLE subject
 (
   id              INT          NOT NULL AUTO_INCREMENT PRIMARY KEY,
   pid             INT          NOT NULL,
-  fullpath        VARCHAR(150) NOT NULL,
-  name            VARCHAR(50)  NOT NULL,
-  `desc`          VARCHAR(200),
-  ctime           INT          NOT NULL,
+  category        VARCHAR(256) NOT NULL,
+  shortName       VARCHAR(125) NOT NULL,
+  name            VARCHAR(125) NOT NULL,
+  ctime           TIMESTAMP    NOT NULL,
+  uptime          TIMESTAMP    NOT NULL,
+  channelId       INT          NOT NULL,
   priority        INT DEFAULT 60,
   status          INT DEFAULT 0,
-  channelId       INT          NOT NULL,
+  `desc`          VARCHAR(256),
+  tags            VARCHAR(125),
   editorId        INT,
   templateId      INT,
   bakTemplateList VARCHAR(200),

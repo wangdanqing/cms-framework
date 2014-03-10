@@ -1,10 +1,8 @@
 package net.pusuo.cms.web.dao;
 
 import org.skife.jdbi.v2.DBI;
-import org.springframework.beans.factory.BeanFactory;
-import org.springframework.beans.factory.xml.XmlBeanFactory;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import javax.sql.DataSource;
 
@@ -17,40 +15,35 @@ import javax.sql.DataSource;
  */
 public class DaoFactory {
 
-	private static BeanFactory bf;
+	private static ApplicationContext context;
 
 	static {
-		init();
-	}
-
-	public static synchronized void init() {
-		Resource resource = new ClassPathResource("dao-beans.xml");
-		bf = new XmlBeanFactory(resource);
+		context = new ClassPathXmlApplicationContext("dao-beans.xml");
 	}
 
 	public static DBI getBaseDBI() {
-		DataSource ds = (DataSource) bf.getBean("datasource");
+		DataSource ds = (DataSource) context.getBean("datasource");
 		return new DBI(ds);
 	}
 
 
 	public static DBI getChannelDBI() {
-		DataSource ds = (DataSource) bf.getBean("datasource");
+		DataSource ds = (DataSource) context.getBean("datasource");
 		return new DBI(ds);
 	}
 
 	public static DBI getSubjectDBI() {
-		DataSource ds = (DataSource) bf.getBean("datasource");
+		DataSource ds = (DataSource) context.getBean("datasource");
 		return new DBI(ds);
 	}
 
 	public static DBI getTemplateDBI() {
-		DataSource ds = (DataSource) bf.getBean("datasource");
+		DataSource ds = (DataSource) context.getBean("datasource");
 		return new DBI(ds);
 	}
 
 	public static DBI getEntityItemDBI() {
-		DataSource ds = (DataSource) bf.getBean("datasource");
+		DataSource ds = (DataSource) context.getBean("datasource");
 		return new DBI(ds);
 	}
 }

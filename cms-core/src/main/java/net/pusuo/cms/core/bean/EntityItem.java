@@ -1,6 +1,8 @@
 package net.pusuo.cms.core.bean;
 
 
+import net.minidev.json.JSONObject;
+
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -8,7 +10,7 @@ import java.util.List;
  * 实体对象
  * 可以是新闻, 文章等文字内容
  */
-public class EntityItem extends Item {
+public class EntityItem extends Item implements IHelper {
 
 	private static final long serialVersionUID = -928413065422581527L;
 	private long id;
@@ -32,6 +34,34 @@ public class EntityItem extends Item {
 	private List<Long> pictures;        //	图片id list
 	private String reurl;            //	跳转链接
 	private String tags;            //	tag
+
+
+	@Override
+	public JSONObject toJson() {
+		JSONObject j = new JSONObject();
+		j.put("id", id);
+		j.put("pid", pid);
+		j.put("title", title);
+		j.put("subhead", subhead);
+		j.put("content", content);
+		j.put("ctime", ctime);
+		j.put("uptime", uptime);
+		j.put("priority", priority);
+		j.put("channelId", channelId);
+		j.put("status", status);
+		j.put("mediaId", mediaId);
+		j.put("editor", editor);
+		j.put("author", author);
+		j.put("dutyEditor", dutyEditor);
+		j.put("url", url);
+		j.put("category", category);
+		j.put("shortName", shortName);
+		j.put("keyword", keyword);
+		j.put("tags", tags);
+		j.put("reurl", reurl);
+
+		return j;
+	}
 
 	public long getId() {
 		return id;
