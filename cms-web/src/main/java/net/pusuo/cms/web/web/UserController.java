@@ -1,7 +1,11 @@
 package net.pusuo.cms.web.web;
 
+import net.pusuo.cms.core.bean.auth.User;
+import net.pusuo.cms.web.service.UserService;
 import net.pusuo.cms.web.util.CaptchaUtil;
 import org.patchca.service.Captcha;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -23,11 +27,14 @@ import java.io.IOException;
 @Controller
 @RequestMapping("user")
 public class UserController {
+	private final static Logger logger = LoggerFactory.getLogger(UserController.class);
+	private final static String captKey = "key_capt_word";
+
+	private UserService userService = new UserService();
 
 	@RequestMapping("login")
 	public ModelAndView login() {
-		ModelAndView m = new ModelAndView("user/login");
-		return m;
+		return new ModelAndView("user/login");
 	}
 
 	@RequestMapping("loginin")
@@ -36,25 +43,32 @@ public class UserController {
 		String passwd = request.getParameter("password");
 		String captcha = request.getParameter("captcha");
 
-		String verify_captcha = (String) session.getAttribute("key_capt_word");
-		ModelAndView m = null;
-		//todo
-//        if (!captcha.equals(verify_captcha)) {
-//            m = new ModelAndView("/user/login");
-//            m.addObject("login_error", "验证码错误，请重新登陆");
-//            return m;
-//        }
+		String verify_captcha = (String) session.getAttribute(captKey);
 
-		try {
-			response.sendRedirect("/");
-		} catch (IOException e) {
-			e.printStackTrace();
+		ModelAndView view = new ModelAndView("/user/login");
+		if (!captcha.equals(verify_captcha)) {
+			view.addObject("login_error", "验证码错误，请重新输入验证码");
+			return view;
 		}
 
-		session.setAttribute("user", "->" + name);
+		//	清空验证码
+		session.removeAttribute(verify_captcha);
 
-		m = new ModelAndView("index");
-		return m;
+		User user = userService.getByUserNamePasswd(name, passwd);
+		if (user == null) {
+			view.addObject("login_error", "用户名或密码不匹配，请重新输入");
+			return view;
+		} else {
+			session.setAttribute("user", user.getName());
+			session.setAttribute("userId", user.getId());
+			boolean ret = userService.setLoginToken(user.getId(), session);
+			if (!ret) {
+				view.addObject("login_error", "登录失败，请重新登录");
+				return view;
+			}
+		}
+
+		return new ModelAndView("forward:/");
 	}
 
 
@@ -62,12 +76,12 @@ public class UserController {
 	@ResponseBody
 	public void getCaptcha(HttpSession session, HttpServletResponse response) {
 		Captcha captcha = CaptchaUtil.getCaptcha();
-		session.setAttribute("key_capt_word", captcha.getChallenge());
+		session.setAttribute(captKey, captcha.getChallenge());
 
 		try {
 			ImageIO.write(captcha.getImage(), "jpg", response.getOutputStream());
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error("gen captcha err", e);
 		}
 	}
 

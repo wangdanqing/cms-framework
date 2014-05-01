@@ -12,11 +12,11 @@ import org.springframework.web.servlet.ModelAndView;
  * @date: 14-3-1 下午8:09
  */
 public class ViewUtil {
-	private final static ChannelService channelService = new ChannelService();
+//	private final static ChannelService channelService = new ChannelService();
 
-	public static void fillChannel(ModelAndView view) {
-		view.addObject("channelList", channelService.query(0));
-	}
+//	public static void fillChannel(ModelAndView view) {
+//		view.addObject("channelList", channelService.query(0));
+//	}
 
 	public static ModelAndView renderJsonView(String result) {
 		ModelAndView view = new ModelAndView(Constant.COMMON_JSON_PAGE);
@@ -28,7 +28,7 @@ public class ViewUtil {
 		ModelAndView view = new ModelAndView("index");
 		view.addObject("include_page", page);
 		view.addObject("item", item);
-		view.addObject("channelList", channelService.query(0));
+//		view.addObject("channelList", channelService.query(0));
 		return view;
 	}
 
@@ -36,7 +36,7 @@ public class ViewUtil {
 		ModelAndView view = new ModelAndView("index");
 		view.addObject("include_page", includePage);
 		view.addObject("list", list);
-		view.addObject("channelList", channelService.query(0));    //	左边栏，频道列表数据
+//		view.addObject("channelList", channelService.query(0));    //	左边栏，频道列表数据
 		return view;
 	}
 }

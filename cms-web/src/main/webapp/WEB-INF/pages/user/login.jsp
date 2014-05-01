@@ -69,35 +69,33 @@
 			<span class="label"><c:out value="${login_error}" escapeXml="false"/></span>
 		</c:if>
 		<h2 class="form-signin-heading">登陆</h2>
-		<input type="text" name="username" id="username" class="input-block-level" placeholder="Email address">
-		<input type="password" name="password" id="password" class="input-block-level" placeholder="Password">
-		<input type="text" name="captcha" id="captcha" class="input-block-level" placeholder="输入验证码">
+		<input type="text" name="username" id="username" class="input-block-level" placeholder="Email address" autocomplete="off">
+		<input type="password" name="password" id="password" class="input-block-level" placeholder="Password" autocomplete="off">
+		<input type="text" name="captcha" id="captcha" class="input-block-level" placeholder="输入验证码" autocomplete="off">
 		<img src="/user/getCaptcha" title="验证码" style="margin:5px 0 10px 0"/> <br/>
 		<%--<label class="checkbox">--%>
 		<%--<input type="checkbox" value="remember-me"> 记住我--%>
 		<%--</label>--%>
 		<button class="btn btn-large btn-primary" type="submit">登陆</button>
 	</form>
-
 </div>
 <!-- /container -->
 
 <!-- Le javascript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="/js/jquery.js"></script>
-<script src="/js/bootstrap-transition.js"></script>
-<script src="/js/bootstrap-alert.js"></script>
-<script src="/js/bootstrap-modal.js"></script>
-<script src="/js/bootstrap-dropdown.js"></script>
-<script src="/js/bootstrap-scrollspy.js"></script>
-<script src="/js/bootstrap-tab.js"></script>
-<script src="/js/bootstrap-tooltip.js"></script>
-<script src="/js/bootstrap-popover.js"></script>
-<script src="/js/bootstrap-button.js"></script>
-<script src="/js/bootstrap-collapse.js"></script>
-<script src="/js/bootstrap-carousel.js"></script>
-<script src="/js/bootstrap-typeahead.js"></script>
-
+<script src="${pageContext.request.contextPath}/js/jquery.js"></script>
+<script src="${pageContext.request.contextPath}/js/bootstrap-transition.js"></script>
+<script src="${pageContext.request.contextPath}/js/bootstrap-alert.js"></script>
+<script src="${pageContext.request.contextPath}/js/bootstrap-modal.js"></script>
+<script src="${pageContext.request.contextPath}/js/bootstrap-dropdown.js"></script>
+<script src="${pageContext.request.contextPath}/js/bootstrap-scrollspy.js"></script>
+<script src="${pageContext.request.contextPath}/js/bootstrap-tab.js"></script>
+<script src="${pageContext.request.contextPath}/js/bootstrap-tooltip.js"></script>
+<script src="${pageContext.request.contextPath}/js/bootstrap-popover.js"></script>
+<script src="${pageContext.request.contextPath}/js/bootstrap-button.js"></script>
+<script src="${pageContext.request.contextPath}/js/bootstrap-collapse.js"></script>
+<script src="${pageContext.request.contextPath}/js/bootstrap-carousel.js"></script>
+<script src="${pageContext.request.contextPath}/js/bootstrap-typeahead.js"></script>
 </body>
 </html>

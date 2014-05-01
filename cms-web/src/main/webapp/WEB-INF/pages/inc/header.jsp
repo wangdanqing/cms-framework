@@ -22,7 +22,9 @@
 					</ul>
 				</li>
 				<li><a href="${pageContext.request.contextPath}/entity/toitem?op=create">新建新闻</a></li>
+				<li><a href="${pageContext.request.contextPath}/entity/list">查看新闻</a></li>
 				<li><a href="${pageContext.request.contextPath}/subject/toitem?op=create">新建栏目</a></li>
+				<li><a href="${pageContext.request.contextPath}/subject/list">查看栏目</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<li class="dropdown">

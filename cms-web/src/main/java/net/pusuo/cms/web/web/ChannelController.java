@@ -3,11 +3,12 @@ package net.pusuo.cms.web.web;
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 import net.pusuo.cms.core.bean.Channel;
-import net.pusuo.cms.web.service.ChannelService;
-import net.pusuo.cms.web.util.ViewUtil;
 import net.pusuo.cms.core.bean.Constant;
+import net.pusuo.cms.web.service.ChannelService;
 import net.pusuo.cms.web.util.FormRequestUtil;
+import net.pusuo.cms.web.util.ViewUtil;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -20,12 +21,21 @@ import java.util.List;
  * User: shijinkui
  * Date: 13-3-31
  * Time: 下午11:28
- * To change this template use File | Settings | File Templates.
  */
 @Controller
 @RequestMapping("channel")
 public class ChannelController {
 	private final ChannelService channelService = new ChannelService();
+
+	@RequestMapping(value = "get/{id}")
+	public ModelAndView get(@PathVariable int id) {
+		if(id<0){
+			return list();
+		}
+
+		Channel channel = channelService.getById(id);
+		return ViewUtil.renderObjView("_channel_detail.jsp", channel);
+	}
 
 	@RequestMapping("list")
 	public ModelAndView list() {

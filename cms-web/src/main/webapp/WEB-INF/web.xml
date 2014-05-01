@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 
 	<display-name>cms-framework-web</display-name>
 	<listener>
@@ -24,7 +24,6 @@
 		<filter-name>encodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-
 	<filter>
 		<filter-name>commonFilter</filter-name>
 		<filter-class>net.pusuo.cms.web.filter.CommonFilter</filter-class>
@@ -33,32 +32,28 @@
 		<filter-name>commonFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-
-	<servlet>
-		<servlet-name>ServletConfigurator</servlet-name>
-		<servlet-class>
-			org.logicalcobwebs.proxool.configuration.ServletConfigurator
-		</servlet-class>
-		<init-param>
-			<param-name>xmlFile</param-name>
-			<param-value>classpath:proxool.xml</param-value>
-		</init-param>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
+	<filter>
+		<filter-name>shallowEtagHeaderFilter</filter-name>
+		<filter-class>org.springframework.web.filter.ShallowEtagHeaderFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>shallowEtagHeaderFilter</filter-name>
+		<servlet-name>cms</servlet-name>
+	</filter-mapping>
 
 	<!-- Handles all requests into the application -->
 	<servlet>
-		<servlet-name>Spring MVC Dispatcher Servlet</servlet-name>
+		<servlet-name>cms</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
 			<param-value>/WEB-INF/cms-servlet.xml</param-value>
 		</init-param>
-		<load-on-startup>1</load-on-startup>
+		<load-on-startup>0</load-on-startup>
 	</servlet>
 
 	<servlet-mapping>
-		<servlet-name>Spring MVC Dispatcher Servlet</servlet-name>
+		<servlet-name>cms</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 
