@@ -6,3 +6,13 @@
 		<li><a href="/channel/get/<c:out value="${channel.id}"/>"><c:out value="${idx.count}"/>: <c:out value="${channel.name}"/></a></li>
 	</c:forEach>
 </ul>
+
+
+<link rel="stylesheet" href="/css/jstree/style.min.css"/>
+<script src="/js/jquery-2.1.0.min.js"></script>
+<script src="/js/jstree.min.js"></script>
+<script>
+	$(function () {
+		$('#container').jstree(/* optional config object here */);
+	});
+</script>
