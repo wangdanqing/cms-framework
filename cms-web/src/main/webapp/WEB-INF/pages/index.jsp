@@ -16,9 +16,9 @@
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-sm-3 col-md-2 sidebar">
-			<jsp:include page="inc/menu.jsp" flush="true"/>
+			<jsp:include page="inc/menu.jsp" flush="false"/>
 		</div>
-		<div class="span9">
+		<div class="col-sm-8 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 			<jsp:include page="${include_page}"/>
 		</div>
 	</div>
