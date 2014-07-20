@@ -1,7 +1,9 @@
-CREATE DATABASE IF NOT EXISTS cms_framework
-  DEFAULT CHARSET utf8;
+CREATE USER 'cms'@'localhost' IDENTIFIED BY '111111';
+GRANT ALL ON *.* TO 'cms'@'localhost';
 
-USE cms_framework;
+CREATE DATABASE IF NOT EXISTS cms DEFAULT CHARSET utf8;
+
+USE cms;
 
 CREATE TABLE media (
   id      INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
@@ -39,7 +41,7 @@ CREATE TABLE id_seq (
   `group` VARCHAR(56)        NOT NULL
 );
 
-CREATE TABLE cms_framework.channel
+CREATE TABLE channel
 (
   id   INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
   name VARCHAR(255),

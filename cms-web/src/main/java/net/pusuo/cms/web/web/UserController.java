@@ -46,7 +46,7 @@ public class UserController {
 		String verify_captcha = (String) session.getAttribute(captKey);
 
 		ModelAndView view = new ModelAndView("/user/login");
-		if (!captcha.equals(verify_captcha)) {
+		if (verify_captcha != null && !captcha.equals(verify_captcha)) {
 			view.addObject("login_error", "验证码错误，请重新输入验证码");
 			return view;
 		}
@@ -79,7 +79,7 @@ public class UserController {
 		session.setAttribute(captKey, captcha.getChallenge());
 
 		try {
-			ImageIO.write(captcha.getImage(), "jpg", response.getOutputStream());
+			ImageIO.write(captcha.getImage(), "png", response.getOutputStream());
 		} catch (IOException e) {
 			logger.error("gen captcha err", e);
 		}

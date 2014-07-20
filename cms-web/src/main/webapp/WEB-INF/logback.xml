@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="true">
+	<contextName>cms</contextName>
+
+	<property name="cms" value="cms.log"/>
+
+	<!--控制台输出appender-->
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<target>System.out</target>
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss} |-%-5level %logger{80} - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<!--默认使用这个appender-->
+	<appender name="timeRollingAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>${loggingRoot}/${cms}</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${loggingRoot}/${cms}.%d{yyyy-MM-dd}</FileNamePattern>
+			<maxHistory>10</maxHistory>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>500MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss} |-%-5level %logger{80} - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+
+	<!--filter-->
+	<logger name="ch.qos.logback" level="ERROR"/>
+	<logger name="o.e" level="ERROR"/>
+	<logger name="org.eclipse.jetty" level="ERROR"/>
+	<logger name="org.springframework" level="ERROR"/>
+
+	<!--async append log-->
+	<appender name="asynAppender" class="ch.qos.logback.classic.AsyncAppender">
+		<appender-ref ref="timeRollingAppender"/>
+	</appender>
+
+	<root level="${loggingLevel}">
+		<appender-ref ref="asynAppender"/>
+		<appender-ref ref="STDOUT"/>
+	</root>
+</configuration>

@@ -10,12 +10,12 @@
 	<meta name="author" content="">
 
 	<!-- Le styles -->
-	<link href="/css/bootstrap.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/bootstrap.css" rel="stylesheet">
 	<style type="text/css">
 		body {
 			padding-top: 40px;
 			padding-bottom: 40px;
-			background-color: #f5f5f5;
+			9 background-color: #f5f5f5;
 		}
 
 		.form-signin {
@@ -46,56 +46,24 @@
 		}
 
 	</style>
-	<link href="/css/bootstrap-responsive.css" rel="stylesheet">
-
-	<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-	<!--[if lt IE 9]>
-	<script src="/js/html5shiv.js"></script>
-	<![endif]-->
-
-	<!-- Fav and touch icons -->
-	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/ico/apple-touch-icon-144-precomposed.png">
-	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/ico/apple-touch-icon-114-precomposed.png">
-	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/ico/apple-touch-icon-72-precomposed.png">
-	<link rel="apple-touch-icon-precomposed" href="/ico/apple-touch-icon-57-precomposed.png">
-	<link rel="shortcut icon" href="/images/ico/favicon.ico"/>
+	<link href="${pageContext.request.contextPath}/css/bootstrap-responsive.css" rel="stylesheet">
 </head>
 
 <body>
 
 <div class="container">
 	<form class="form-signin" action="/user/loginin" method="post">
-		<c:if test="${not empty login_error}">
-			<span class="label"><c:out value="${login_error}" escapeXml="false"/></span>
+		<c:if test="${! empty login_error}">
+			<span class="label label-danger"><c:out value="${login_error}" escapeXml="false"/></span>
 		</c:if>
 		<h2 class="form-signin-heading">登陆</h2>
-		<input type="text" name="username" id="username" class="input-block-level" placeholder="Email address" autocomplete="off">
-		<input type="password" name="password" id="password" class="input-block-level" placeholder="Password" autocomplete="off">
+		<input type="text" name="username" id="username" class="input-block-level" placeholder="用户名" autocomplete="off">
+		<input type="password" name="password" id="password" class="input-block-level" placeholder="密码" autocomplete="off">
 		<input type="text" name="captcha" id="captcha" class="input-block-level" placeholder="输入验证码" autocomplete="off">
 		<img src="/user/getCaptcha" title="验证码" style="margin:5px 0 10px 0"/> <br/>
-		<%--<label class="checkbox">--%>
-		<%--<input type="checkbox" value="remember-me"> 记住我--%>
-		<%--</label>--%>
 		<button class="btn btn-large btn-primary" type="submit">登陆</button>
 	</form>
 </div>
 <!-- /container -->
-
-<!-- Le javascript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="${pageContext.request.contextPath}/js/jquery.js"></script>
-<script src="${pageContext.request.contextPath}/js/bootstrap-transition.js"></script>
-<script src="${pageContext.request.contextPath}/js/bootstrap-alert.js"></script>
-<script src="${pageContext.request.contextPath}/js/bootstrap-modal.js"></script>
-<script src="${pageContext.request.contextPath}/js/bootstrap-dropdown.js"></script>
-<script src="${pageContext.request.contextPath}/js/bootstrap-scrollspy.js"></script>
-<script src="${pageContext.request.contextPath}/js/bootstrap-tab.js"></script>
-<script src="${pageContext.request.contextPath}/js/bootstrap-tooltip.js"></script>
-<script src="${pageContext.request.contextPath}/js/bootstrap-popover.js"></script>
-<script src="${pageContext.request.contextPath}/js/bootstrap-button.js"></script>
-<script src="${pageContext.request.contextPath}/js/bootstrap-collapse.js"></script>
-<script src="${pageContext.request.contextPath}/js/bootstrap-carousel.js"></script>
-<script src="${pageContext.request.contextPath}/js/bootstrap-typeahead.js"></script>
 </body>
 </html>

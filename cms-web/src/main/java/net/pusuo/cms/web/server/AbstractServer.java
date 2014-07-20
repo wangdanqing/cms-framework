@@ -1,9 +1,5 @@
 package net.pusuo.cms.web.server;
 
-import com.twitter.ostrich.admin.AdminHttpService;
-import com.twitter.ostrich.admin.RuntimeEnvironment;
-import com.twitter.ostrich.admin.TimeSeriesCollectorFactory;
-import com.twitter.ostrich.stats.Stats;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.NCSARequestLog;
 import org.eclipse.jetty.server.RequestLog;
@@ -48,7 +44,7 @@ public abstract class AbstractServer {
 	public void run() throws Exception {
 		init(config);
 
-		startAdminMonitor();
+//		startAdminMonitor();
 		start();
 		join();
 	}
@@ -64,15 +60,15 @@ public abstract class AbstractServer {
 		server.start();
 	}
 
-	private void startAdminMonitor() {
-		AdminHttpService admin = new AdminHttpService(
-				config.port + 1,
-				123,
-				new RuntimeEnvironment(this));
-		TimeSeriesCollectorFactory seriesCollectorFactory = new TimeSeriesCollectorFactory();
-		seriesCollectorFactory.apply(Stats.get(""), admin).start();
-		admin.start();
-	}
+//	private void startAdminMonitor() {
+//		AdminHttpService admin = new AdminHttpService(
+//				config.port + 1,
+//				123,
+//				new RuntimeEnvironment(this));
+//		TimeSeriesCollectorFactory seriesCollectorFactory = new TimeSeriesCollectorFactory();
+//		seriesCollectorFactory.apply(Stats.get(""), admin).start();
+//		admin.start();
+//	}
 
 	public void join() throws InterruptedException {
 		server.join();

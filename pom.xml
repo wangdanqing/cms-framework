@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>net.pusuo</groupId>
-	<artifactId>cms-framework</artifactId>
+	<artifactId>cms</artifactId>
 	<packaging>pom</packaging>
 	<version>1.0</version>
 	<modules>
@@ -20,7 +20,6 @@
 		<project.jdk.version>1.6</project.jdk.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
-
 
 	<distributionManagement>
 		<site>

@@ -2,7 +2,7 @@ package net.pusuo.cms.web.util;
 
 import org.patchca.background.SingleColorBackgroundFactory;
 import org.patchca.color.SingleColorFactory;
-import org.patchca.filter.predefined.WobbleRippleFilterFactory;
+import org.patchca.filter.predefined.DoubleRippleFilterFactory;
 import org.patchca.service.Captcha;
 import org.patchca.service.ConfigurableCaptchaService;
 
@@ -20,9 +20,11 @@ public class CaptchaUtil {
 
 	static {
 		cs.setColorFactory(new SingleColorFactory(new Color(25, 60, 170)));
-		cs.setBackgroundFactory(new SingleColorBackgroundFactory());
-//        cs.setFilterFactory(new CurvesRippleFilterFactory(cs.getColorFactory()));
-		cs.setFilterFactory(new WobbleRippleFilterFactory());
+
+		SingleColorBackgroundFactory bgc = new SingleColorBackgroundFactory();
+		bgc.setColorFactory(new SingleColorFactory(new Color(170, 170, 170)));
+		cs.setBackgroundFactory(bgc);
+		cs.setFilterFactory(new DoubleRippleFilterFactory());
 	}
 
 	public static Captcha getCaptcha() {

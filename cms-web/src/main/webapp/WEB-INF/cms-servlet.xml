@@ -16,12 +16,6 @@
 	<mvc:resources mapping="/css/**" location="css/"/>
 	<mvc:resources mapping="/js/**" location="js/"/>
 
-	<!--<bean id="handlerMapping" class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">-->
-	<!--<property name="defaultHandler">-->
-	<!--<bean class="com.sohu.twitter.web.DefaultController"/>-->
-	<!--</property>-->
-	<!--</bean>-->
-
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/pages/"/>
 		<property name="suffix" value=".jsp"/>
