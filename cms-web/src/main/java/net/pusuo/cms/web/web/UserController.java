@@ -68,7 +68,7 @@ public class UserController {
 			}
 		}
 
-		return new ModelAndView("forward:/");
+		return new ModelAndView("redirect:/");
 	}
 
 

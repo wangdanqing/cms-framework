@@ -29,7 +29,7 @@ public class Channel extends Item implements IHelper {
 	}
 
 
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 

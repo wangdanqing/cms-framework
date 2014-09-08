@@ -4,7 +4,7 @@ import net.minidev.json.JSONObject;
 
 import java.sql.Timestamp;
 
-public class Subject extends Item implements IHelper {
+public class Subject extends Item implements IHelper, Comparable<Subject> {
 	private static final long serialVersionUID = -676062571458696121L;
 
 	public static final int TYPE_HOME_PAGE = 0;    //	首页
@@ -177,5 +177,16 @@ public class Subject extends Item implements IHelper {
 		json.put("bakTemplateList", bakTemplateList);
 
 		return json;
+	}
+
+	@Override
+	public int compareTo(Subject sub) {
+		//  先比较pid，再比较id
+		//  按照 小->大 顺序
+		if (pid != sub.getPid()) {
+			return sub.getPid() - pid;
+		} else {
+			return sub.getId() - id;
+		}
 	}
 }

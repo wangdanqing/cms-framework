@@ -57,7 +57,7 @@
 			<span class="label label-danger"><c:out value="${login_error}" escapeXml="false"/></span>
 		</c:if>
 		<h2 class="form-signin-heading">登陆</h2>
-		<input type="text" name="username" id="username" class="input-block-level" placeholder="用户名" autocomplete="off">
+		<input type="text" name="username" id="username" autofocus class="input-block-level" placeholder="用户名">
 		<input type="password" name="password" id="password" class="input-block-level" placeholder="密码" autocomplete="off">
 		<input type="text" name="captcha" id="captcha" class="input-block-level" placeholder="输入验证码" autocomplete="off">
 		<img src="/user/getCaptcha" title="验证码" style="margin:5px 0 10px 0"/> <br/>

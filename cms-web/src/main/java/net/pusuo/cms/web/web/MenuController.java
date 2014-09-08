@@ -1,15 +1,16 @@
 package net.pusuo.cms.web.web;
 
+import net.minidev.json.JSONArray;
+import net.minidev.json.JSONObject;
 import net.pusuo.cms.core.bean.Channel;
 import net.pusuo.cms.web.service.ChannelService;
 import org.codehaus.jackson.JsonFactory;
-import org.codehaus.jackson.JsonGenerator;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
-import java.io.StringWriter;
 import java.util.List;
 
 /**
@@ -27,38 +28,35 @@ public class MenuController {
 	private final ChannelService channelService = new ChannelService();
 	JsonFactory jsonFactory = new JsonFactory();
 
-	@RequestMapping("getall")
+	@RequestMapping("getroot")
 	public String getAll(HttpServletRequest request) {
 		List<Channel> list = channelService.query(0);
-
-		StringWriter stringWriter = new StringWriter();
-		try {
-			JsonGenerator g = jsonFactory.createJsonGenerator(stringWriter);
-			g.writeStartArray();
-			for (Channel ch : list) {
-				g.writeStartObject();
-				g.writeNumberField("channelId", ch.getId());
-				g.writeStringField("name", ch.getName());
-				g.writeStringField("dir", ch.getDir());
-				g.writeEndObject();
-			}
-			g.writeEndArray();
-			g.close(); // important: will force flushing of output, close underlying output stream
-
-			String ret = g.getOutputTarget().toString();
-			System.out.println("menu: " + ret);
-			return ret;
-		} catch (IOException e) {
-			e.printStackTrace();
+		if (list == null) {
+			return "[]";
 		}
 
-		return "";
+		JSONArray array = new JSONArray();
+		for (Channel ch : list) {
+			JSONObject obj = new JSONObject();
+			obj.put("id", ch.getId());
+			obj.put("text", ch.getName());
+			obj.put("parent", "#");
+			array.add(obj);
+		}
+
+		return array.toJSONString();
 	}
 
-	@RequestMapping("getbyChannelId")
-	public String getByChannelId(HttpServletRequest request) {
 
-		return "";
+	/**
+	 * 根据菜单ID获取子列表
+	 *
+	 * @param id pid
+	 * @return childres list
+	 */
+	@RequestMapping("getbypid")
+	@ResponseBody
+	public String getByPid(@RequestParam("pid") String id) {
+		return "[]";
 	}
-
 }

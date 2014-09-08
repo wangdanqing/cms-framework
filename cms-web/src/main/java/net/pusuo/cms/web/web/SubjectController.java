@@ -53,13 +53,13 @@ public class SubjectController {
 	}
 
 	@RequestMapping(value = "toitem", method = RequestMethod.GET)
-	public ModelAndView toitem(@RequestParam(value = "id", required = false) Integer id,
-							   @RequestParam(value = "op", required = true) String op) {
+	public ModelAndView toitem(@RequestParam(value = "id", required = false) int id,
+	                           @RequestParam(value = "op", required = true) String op) {
 		Subject item = null;
 		op = op == null ? "create" : op;
 
 		//	带上一次创建的新闻信息，创建新闻
-		if (id != null && id > 0 && op.equals("create")) {
+		if (id > 0 && op.equals("create")) {
 			//	新生成一篇文章，默认带上一些共同属性
 			Subject current = service.getById(id);
 			item = new Subject();
@@ -70,7 +70,7 @@ public class SubjectController {
 			item.setStatus(current.getStatus());
 		}
 
-		if (id != null && id > 0 && op.equals("update")) {
+		if (id > 0 && op.equals("update")) {
 			item = service.getById(id);
 		}
 

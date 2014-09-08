@@ -5,6 +5,7 @@ import net.pusuo.cms.web.dao.DaoFactory;
 import net.pusuo.cms.web.dao.SubjectDao;
 import org.skife.jdbi.v2.DBI;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -22,7 +23,6 @@ public class SubjectService implements IService<Subject> {
 	 * 根据栏目Id，获取所有的子栏目
 	 *
 	 * @param id 栏目ID
-	 *
 	 * @return list subject
 	 */
 	public List<Subject> getSubListById(int id) {
